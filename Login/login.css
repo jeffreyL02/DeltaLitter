@@ -1,0 +1,56 @@
+.btn{
+  background-color: #8df3a9;
+  display:block;
+  border: none;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 0.7vh #6f997b;
+  width: 70%;
+  height:15vh;
+  text-align: center;
+  position: relative;
+  left:15%;
+  font-size:8vh;
+  padding:3vh;
+  margin-top: 30%;
+}
+.btn:active{
+  background-color: #8bd59f;
+  box-shadow: 0 0.4vh #62866d;
+  transform: translateY(0.3vh);
+}
+#signupBtn{
+  font-size: 7vh;
+}
+#loginPg{
+  display:none;
+
+}
+#signupPg{
+  display:none;
+}
+.credentials{
+  margin-left: 9vw;
+  height: 6vh;
+  width:80%;
+  font-size: 3vh;
+  border:none;
+  outline:none;
+}
+.credentials:focus{
+  border-bottom: 0.2vh solid #8df3a9;
+  transition-duration: 0.3s;
+}
+h1{
+  font-size: 8vh;
+  margin-top: 1vh;
+  margin-left: 6vw;
+  margin-bottom: 7vh;
+}
+h3{
+  font-size: 4vh;
+  margin-left: 6vw;
+  margin-top: 5vh;
+  margin-bottom: 1vh;
+}

@@ -1,12 +1,20 @@
+/*put on every page
+default basic css for all file*/
 *{
     margin:0;
     padding:0;
 }
-#nav{
-  background-color: #99fcb4;
-  height: 10vh;
-}
 html{
   background-color: #fafafa;
   height:100%;
+}
+#nav{
+  background-color: #8df3a9;
+  height: 10vh;
+}
+#logo{
+
+}
+#homeBtn{
+
 }
