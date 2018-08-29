@@ -1,3 +1,6 @@
+*{
+  font-family: "Century Gothic";
+}
 .btn{
   background-color: #8df3a9;
   display:block;
@@ -20,15 +23,20 @@
   box-shadow: 0 0.4vh #62866d;
   transform: translateY(0.3vh);
 }
+body{
+  overflow: hidden;
+}
 #signupBtn{
   font-size: 7vh;
 }
 #loginPg{
   display:none;
+  overflow: hidden;
 
 }
 #signupPg{
   display:none;
+  overflow: hidden;
 }
 .credentials{
   margin-left: 9vw;
