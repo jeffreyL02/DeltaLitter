@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/global.css">
+    <link rel="stylesheet" type="text/css" href="login.css" />
+    
+<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB7IaPVpxL6StNh2niH_JMmgh3ldL9BCBE",
+    authDomain: "deltalitter.firebaseapp.com",
+    databaseURL: "https://deltalitter.firebaseio.com",
+    projectId: "deltalitter",
+    storageBucket: "deltalitter.appspot.com",
+    messagingSenderId: "597109033529"
+  };
+  firebase.initializeApp(config);
+</script>
+
+  </head>
+  <body>
+    <div id="nav">
+      <img src="#" id="logo"/>
+      <img src="#" id="=homeBtn"/>
+    </div>
+    <div id="workspace">
+      <div id='land'>
+        <div>
+          <h1>&#916;LITTER</h1>
+        </div>
+        <button class="btn" id="loginBtn">Login</button>
+        <button class="btn" id="signupBtn">Sign Up</button>
+      </div>
+      <div id="loginPg">
+        <h1>Login</h1>
+        <h3>Username</h3>
+        <input type="text" class="credentials" id="logName" placeholder="Username"/>
+        <h3>Password</h3>
+        <input type="text" class="credentials" id="logPass" placeholder="Password"/>
+        <button id="btn_action_login">Login</button>
+      </div>
+      <div id="signupPg">
+        <h1>Sign Up</h1>
+        <h3>Username</h3>
+        <input type="text" class="credentials" id="signName" placeholder="Ex: John_Smith"/>
+        <h3>Password</h3>
+        <input type="password" class="credentials" id="signPass" placeholder="Ex: abc123"/>
+        <h3>Retype Password</h3>
+        <input type="password" class="credentials" id="signRePass" placeholder="Ex: abc123"/>
+        <button id="btn_action_signUp">Sign UP</button>
+      </div>
+    </div>
+  </body>
+  <script src="loginNav.js"></script>
+  <script src="/__/firebase/4.1.3/firebase.js"></script>
+	<script src="/__/firebase/init.js"></script>
+</html>
