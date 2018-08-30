@@ -13,10 +13,12 @@ html{
 }
 #logo{
   color:#58c074;
-  font-size: 5vh;
-  text-align: center;
-  padding-top: 2vh;
+  font-size: 11vw;
+  padding-left: 33.5vw;
+  padding-top: 2.5vw;
+  display: inline;
 }
 #homeBtn{
-
+  display: inline;
+  float: right;
 }
