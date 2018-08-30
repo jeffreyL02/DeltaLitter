@@ -1,0 +1,24 @@
+/*put on every page
+default basic css for all file*/
+*{
+    margin:0;
+    padding:0;
+}
+html{
+  height:100%;
+}
+#nav{
+  background-color: #fafafa;
+  height: 10vh;
+}
+#logo{
+  color:#58c074;
+  font-size: 11vw;
+  padding-left: 33.5vw;
+  padding-top: 2.5vw;
+  display: inline;
+}
+#homeBtn{
+  display: inline;
+  float: right;
+}
