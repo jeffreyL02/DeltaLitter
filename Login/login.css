@@ -2,14 +2,7 @@
   font-family: "Century Gothic";
 }
 html{
-  background-image: linear-gradient(to bottom right, #3bb85c, #75e092);
-}
-#logo{
-
-}
-#homeBtn{
-  position:relative;
-  left:0;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
 }
 #wkspceLogo{
   font-size: 10vh;

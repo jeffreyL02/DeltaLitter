@@ -12,7 +12,10 @@ html{
   height: 10vh;
 }
 #logo{
-
+  color:#58c074;
+  font-size: 5vh;
+  text-align: center;
+  padding-top: 2vh;
 }
 #homeBtn{
 
