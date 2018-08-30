@@ -1,14 +1,30 @@
 *{
   font-family: "Century Gothic";
 }
+html{
+  background-image: linear-gradient(to bottom right, #3bb85c, #75e092);
+}
+#logo{
+
+}
+#homeBtn{
+  position:relative;
+  left:0;
+}
+#wkspceLogo{
+  font-size: 10vh;
+  text-align: center;
+  margin-top: 10%;
+  color:white;
+}
 .btn{
-  background-color: #8df3a9;
   display:block;
-  border: none;
+  border: white solid 0.3vh;
+  color: white;
+  background-color: Transparent;
   border-radius: 2.5vh;
   outline: none;
   cursor: pointer;
-  box-shadow: 0 0.7vh #6f997b;
   width: 70%;
   height:15vh;
   text-align: center;
@@ -16,12 +32,10 @@
   left:15%;
   font-size:8vh;
   padding:3vh;
-  margin-top: 30%;
+  margin-top: 17%;
+  padding-bottom: 14vh;
 }
 .btn:active{
-  background-color: #8bd59f;
-  box-shadow: 0 0.4vh #62866d;
-  transform: translateY(0.3vh);
 }
 body{
   overflow: hidden;
