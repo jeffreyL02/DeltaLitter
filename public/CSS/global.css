@@ -5,15 +5,17 @@ default basic css for all file*/
     padding:0;
 }
 html{
-  background-color: #fafafa;
   height:100%;
 }
 #nav{
-  background-color: #8df3a9;
+  background-color: #fafafa;
   height: 10vh;
 }
 #logo{
-
+  color:#58c074;
+  font-size: 5vh;
+  text-align: center;
+  padding-top: 2vh;
 }
 #homeBtn{
 
