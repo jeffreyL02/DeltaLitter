@@ -15,10 +15,15 @@ html{
   color:#58c074;
   font-size: 11vw;
   padding-left: 33.5vw;
-  padding-top: 2.5vw;
+  padding-top: 3vw;
   display: inline;
+  position: absolute;
 }
 #homeBtn{
   display: inline;
   float: right;
+  height: 11vw;
+  position: absolute;
+  top: 1.5vh;
+  right: 1.5vh;
 }
