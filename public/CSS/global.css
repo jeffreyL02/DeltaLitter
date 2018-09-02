@@ -6,10 +6,12 @@ default basic css for all file*/
 }
 html{
   height:100%;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
 }
 #nav{
   background-color: #fafafa;
   height: 10vh;
+  font-family: "Century Gothic";
 }
 #logo{
   color:#58c074;
@@ -24,6 +26,6 @@ html{
   float: right;
   height: 11vw;
   position: absolute;
-  top: 1.5vh;
+  top: 2vh;
   right: 1.5vh;
 }
