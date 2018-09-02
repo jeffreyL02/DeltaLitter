@@ -1,9 +1,6 @@
 *{
   font-family: "Century Gothic";
 }
-html{
-  background-image: linear-gradient(to bottom right, #379c53, #75e092);
-}
 #wkspceLogo{
   font-size: 10vh;
   text-align: center;
@@ -12,7 +9,7 @@ html{
 }
 .btn{
   display:block;
-  border: white solid 0.3vh;
+  border: #fafafa solid 0.3vh;
   color: white;
   background-color: Transparent;
   border-radius: 2.5vh;
@@ -29,9 +26,7 @@ html{
   padding-bottom: 14vh;
 }
 .btn:active{
-}
-body{
-  overflow: hidden;
+  border: #fafafa solid 0.15vh;
 }
 #signupBtn{
   font-size: 7vh;
@@ -44,32 +39,53 @@ body{
 #signupPg{
   display:none;
   overflow: hidden;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
 }
 .credentials{
   margin-left: 9vw;
-  height: 6vh;
+  margin-top: 1vh;
+  height: 5.5vh;
   width:80%;
   font-size: 3vh;
-  border:none;
+  border-bottom: 0.5vh solid rgba(0,0,0,0);
+  border-radius: 1vh;
+  background-color: #fafafa;
+  padding-left: 2vw;
   outline:none;
 }
 .credentials:focus{
-  border-bottom: 0.2vh solid #8df3a9;
-  transition-duration: 0.3s;
+  border-bottom: 0.5vh solid #8df3a9;
+  transition-duration: 0.17s;
 }
 .btnAfterLand{
-  display:block;
-  font-size: 10vh;
+  display: block;
+  border: #fafafa solid 0.3vh;
+  color: white;
+  background-color: Transparent;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  width: 45%;
+  height: 12vh;
+  text-align: center;
+  position: relative;
+  left: 27.5%;
+  margin-top: 9vh;
+  margin-bottom: 8vh;
+  font-size: 6vh;
 }
 h1{
   font-size: 8vh;
-  margin-top: 1vh;
-  margin-left: 6vw;
-  margin-bottom: 7vh;
+  margin-top: 4vh;
+  margin-left: 6.5vw;
+  color: #fafafa;
+  font-weight: 500;
 }
 h3{
   font-size: 4vh;
-  margin-left: 6vw;
+  margin-left: 6.5vw;
   margin-top: 5vh;
   margin-bottom: 1vh;
+  color: #fafafa;
+  font-weight: 500;
 }
