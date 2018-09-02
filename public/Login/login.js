@@ -3,6 +3,8 @@ const firebaseAuth = firebase.auth();
 let btnSignUp = document.getElementById("btnSignup");
 let btnLogin = document.getElementById("btnLogin");
 let ref = firebaseDB.ref("users");
+let land2 = document.getElementById('land');
+let signup2 = document.getElementById('signupPg');
 let nameList = [];
 ref.on('child_added', function(snapshot, prevChildKey){
     let currentName = snapshot.val();
@@ -35,6 +37,10 @@ btnSignUp.addEventListener('click', function(){
                 });
             });
             promise.catch(e => alert(e.message));
+            promise.then(function(){
+                signup2.style.display = 'none';
+                land2.style.display = 'block';
+            })
     }
     else if(alreadyExists){
         alert("username already exists");
