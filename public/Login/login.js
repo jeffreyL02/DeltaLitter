@@ -52,14 +52,7 @@ btnSignUp.addEventListener('click', function(){
 
 btnLogin.addEventListener("click", function(){
     let loginName = document.getElementById("loginName");
-    let logEmail;
-    ref.on('child_added', function(snapshot, prevChildKey){
-        let currentName = snapshot.val();
-        if(currentName.name == loginName){
-            logEmail = currentName.mail;
-            if(logEmail == currentName.mail){
-                
-            }
-        }
-    })
+    let logMail;
+    let logpw = document.getElementById("logPass");
+    
 });
