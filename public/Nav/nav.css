@@ -6,3 +6,12 @@
   position: absolute;
 
 }
+#camera{
+  background-color: #479B9B;
+}
+#search{
+  background-color: #AEE36A;
+}
+#map{
+  background-color: #1D7D36;
+}
