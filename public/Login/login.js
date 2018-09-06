@@ -6,9 +6,11 @@ let ref = firebaseDB.ref("users");
 let land2 = document.getElementById('land');
 let signup2 = document.getElementById('signupPg');
 let nameList = [];
+let mailList = [];
 ref.on('child_added', function(snapshot, prevChildKey){
     let currentName = snapshot.val();
     nameList.push(currentName.name);
+    mailList.push(currentName.mail);
 })
 
 btnSignUp.addEventListener('click', function(){
@@ -51,15 +53,25 @@ btnSignUp.addEventListener('click', function(){
 });
 
 btnLogin.addEventListener("click", function(){
-    let loginName = document.getElementById("loginName");
-    let logEmail;
-    ref.on('child_added', function(snapshot, prevChildKey){
-        let currentName = snapshot.val();
-        if(currentName.name == loginName){
-            logEmail = currentName.mail;
-            if(logEmail == currentName.mail){
-                
-            }
+    let loginName = document.getElementById("logName").value;
+    let logpw = document.getElementById("logPass").value;
+    let logMail;
+    let nameNotThere = true;
+    for(let i = 0; i < nameList.length; i++){
+        if(loginName == nameList[i]){
+            logMail = mailList[i];
+            nameNotThere = false;
         }
-    })
+    }
+    if(nameNotThere){
+        alert("Not a account");
+    }
+    else{
+        const PROMISE = firebaseAuth.signInWithEmailAndPassword(logMail, logpw)
+        .then(function () {
+            window.location.href = "../Nav/nav.html";
+        }).catch(e => {
+            console.log(e.message);
+        });;
+    }
 });
