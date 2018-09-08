@@ -1,0 +1,18 @@
+input{
+  display:block;
+  border: #fafafa solid 0.3vh;
+  color: white;
+  background-color: Transparent;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  width: 70%;
+  height:15vh;
+  text-align: center;
+  position: relative;
+  left:15%;
+  font-size:8vh;
+  padding:3vh;
+  margin-top: 17%;
+  padding-bottom: 14vh;
+}
