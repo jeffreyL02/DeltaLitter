@@ -2,48 +2,20 @@ let markers=[
   //First marker object
   {
     coordinate:{lat:36.7783,lng:-119.4179},
-    content:'<h1> DANGER!! Jeffrey spotted!! </h1>'
-  },
-  {
-    coordinate:{lat:36.7783,lng:-119.4179},
+    iconImage:'grossJeffrey.png',
     content:'<h1> DANGER!! Jeffrey spotted!! </h1>'
   }
-
 ];
 getPosition(initMap);
-
-document.getElementById("saveLocation").addEventListener("click", function(){
-  var currentPosition;
-  console.log("location updated!!");
-  //get current location if permission given
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      let latitude=position.coords.latitude;
-      let longitude=position.coords.longitude;
-      currentPosition={
-        coordinate:{lat:latitude,lng:longitude},
-        content:'<h1> current location </h1>'
-      }
-      markers.push(currentPosition);
-      console.log(markers.length);
-      initMap();
-})
-}else{ //error handling if permission is not given
-  handleLocationError(false, infoWindow, map.getCenter());
-  callBack();
-}
-});
-
   function getPosition(callBack){
       var currentPosition;
-      console.log("location updated!!");
       //get current location if permission given
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           let latitude=position.coords.latitude;
           let longitude=position.coords.longitude;
           currentPosition={
-            coordinate:{lat:latitude+0.5,lng:longitude+0.5},
+            coordinate:{lat:latitude,lng:longitude},
             content:'<h1> current location </h1>'
           }
           markers.push(currentPosition);
@@ -54,6 +26,29 @@ document.getElementById("saveLocation").addEventListener("click", function(){
       handleLocationError(false, infoWindow, map.getCenter());
       callBack();
     }
+  }
+
+  function geocodeLatLng(geocoder, map, infowindow) {
+    var input = document.getElementById('latlng').value;
+    var latlngStr = input.split(',', 2);
+    var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          map.setZoom(11);
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+          });
+          infowindow.setContent(results[0].formatted_address);
+          infowindow.open(map, marker);
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
   }
 
 
@@ -101,11 +96,9 @@ function initMap(){
     */
 
     //Loop through the array of marker objects
-    let num=0;
+
     for(let i=0;i<markers.length;i++){
       addMarker(markers[i]);
-      num++;
-      console.log("running marker"+num);
     }
 
 
