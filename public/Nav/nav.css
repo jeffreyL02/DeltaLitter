@@ -1,65 +1,66 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  color: #fafafa;
+}
 .selection{
   height:30vh;
+  border-bottom: solid #fafafa 0.4vh;
 }
 .mainLogo{
   position: absolute;
 }
-#camera{
-  background-color: #479B9B;
-}
-#search{
-  background-color: #AEE36A;
-}
-#map{
-  background-color: #1D7D36;
-}
 #cameraImg{
   top: 15.5vh;
   height: 17.5vh;
-  left: 53vw;}
+  left: 54vw;
+}
 #seaImg{
   top: 45vh;
-  height: 19vh;
-  left: 9vw;
+  height: 21vh;
+  left: 1.5vw;
 }
 #mapImg{
-  height: 23vh;
-  top: 73vh;
-  left: 52vw;
+  height: 21vh;
+  top: 75vh;
+  left: 50vw;
 }
-.header {
+.header{
   position: absolute;
   font-family: "Century Gothic";
   font-size: 6vh;
   width: 50%;
   text-align: center;
+  font-weight: normal;
 }
 .desc {
   position: absolute;
   font-family: "Century Gothic";
-  width: 50%;
+  width: 45%;
   font-size: 3vh;
   text-align: center;
 }
 #camHead {
-  top: 11vh;
+  top: 12vh;
 }
 #seaHead{
   left: 47vw;
-  top: 42vh;
+  top: 43vh;
 }
 #mapHead{
   top: 73vh;
   left: 1vw;
 }
 #camDesc{
-  top: 19vh;
+  top: 20vh;
+  left: 3vw;
 }
 #seaDesc{
-  left: 47vw;
-  top: 50vh;
+  left: 49vw;
+  top: 51vh;
 }
 #mapDesc{
   top: 81vh;
-  left: 1vw;
+  left: 3vw;
 }
