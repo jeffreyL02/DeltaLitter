@@ -2,7 +2,6 @@
   height:30vh;
 }
 .mainLogo{
-  width: 25vw;
   position: absolute;
 }
 #camera{
@@ -13,4 +12,54 @@
 }
 #map{
   background-color: #1D7D36;
+}
+#cameraImg{
+  top: 15.5vh;
+  height: 17.5vh;
+  left: 53vw;}
+#seaImg{
+  top: 45vh;
+  height: 19vh;
+  left: 9vw;
+}
+#mapImg{
+  height: 23vh;
+  top: 73vh;
+  left: 52vw;
+}
+.header {
+  position: absolute;
+  font-family: "Century Gothic";
+  font-size: 6vh;
+  width: 50%;
+  text-align: center;
+}
+.desc {
+  position: absolute;
+  font-family: "Century Gothic";
+  width: 50%;
+  font-size: 3vh;
+  text-align: center;
+}
+#camHead {
+  top: 11vh;
+}
+#seaHead{
+  left: 47vw;
+  top: 42vh;
+}
+#mapHead{
+  top: 73vh;
+  left: 1vw;
+}
+#camDesc{
+  top: 19vh;
+}
+#seaDesc{
+  left: 47vw;
+  top: 50vh;
+}
+#mapDesc{
+  top: 81vh;
+  left: 1vw;
 }
