@@ -123,14 +123,16 @@
         var latlng = {lat: latData, lng: longData};
         geocoder.geocode({'location': latlng}, function(results, status) {
           if (status === 'OK') {
-            if (results[0]) {
+            if (results[0]) { //since there's a lot of choices for address results, we chose the first one
               map.setZoom(11);
-              var marker = new google.maps.Marker({
+              var marker = new google.maps.Marker({ //creates a marker at specified location
                 position: latlng,
                 map: map
               });
-              infowindow.setContent(results[0].formatted_address);
-              infowindow.open(map, marker);
+              let placeDesc="Plastic Recycling Center" ;
+              infowindow.setContent("Address: "+results[0].formatted_address+`${placeDesc}`); //info window for the marker will contain the first formatted address
+
+              infowindow.open(map, marker); //automatically opens the info window. However, usually you can add event listener for a click to open the window.
             } else {
               window.alert('No results found');
             }
