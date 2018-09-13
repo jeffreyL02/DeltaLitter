@@ -46,24 +46,24 @@
     </style>
   </head>
   <body>
-    <form id="myForm">
-      <select id="mySelect">
-        <option>Apple</option>
-        <option>Pear</option>
-        <option>Banana</option>
-        <option>Orange</option>
-      </select>
-</form>
-    <div id="floating-panel">
-      <input id="submit" type="button" value="Save My Current Location">
+
+    <div id="floating-panel"> <!--top panel -->
+      <form id="locationSelect">
+        <select id="Options">
+          <option>E-Waste</option>
+          <option>Normal Trash</option>
+          <option>Chemicals</option>
+          <option>Plastics/Glass/Aluminum Recyclables</option>
+        </select>
+      </form>
+      <input id="submit" type="button" value="Save Now">
     </div>
     <div id="map"></div>
     <script>
-    let saveLocation; //store the current location that will be saved
     let markers=[
       //First marker object
       {
-        coordinate:{lat:36.7783,lng:-119.4179},
+        coordinate:{lat:36.7783+0.5,lng:-119.4179+0.5},
       }
     ];
       function initMap() {

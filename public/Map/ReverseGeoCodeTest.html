@@ -46,24 +46,25 @@
     </style>
   </head>
   <body>
-    <form id="myForm">
-      <select id="mySelect">
-        <option>Apple</option>
-        <option>Pear</option>
-        <option>Banana</option>
-        <option>Orange</option>
-      </select>
-</form>
-    <div id="floating-panel">
-      <input id="submit" type="button" value="Save My Current Location">
+
+    <div id="floating-panel"> <!--top panel -->
+      <form id="locationSelect">
+        <select id="Options">
+          <option>E-Waste</option>
+          <option>Normal Trash</option>
+          <option>Chemicals</option>
+          <option>Plastics/Glass/Aluminum Recyclables</option>
+        </select>
+      </form>
+      <input id="submit" type="button" value="Save Now">
     </div>
     <div id="map"></div>
     <script>
-    let saveLocation; //store the current location that will be saved
+    let num=0;
     let markers=[
       //First marker object
       {
-        coordinate:{lat:36.7783,lng:-119.4179},
+        coordinate:{lat:36.7783+0.5,lng:-119.4179+0.5},
       }
     ];
       function initMap() {
@@ -75,12 +76,11 @@
         let geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
         //get current location
-        currentPosition();
 
         document.getElementById('submit').addEventListener('click', function() {
+          currentPosition();
           geocodeLatLng(geocoder, map, infowindow);
-        });
-
+        })
         for(let i=0;i<markers.length;i++){
           addMarker(markers[i]);
         }
@@ -104,30 +104,32 @@
             });
           }
         }
+        function currentPosition(){
+          num++;
+          console.log("running current Position"+num);
+          var currentPosition;
+          //get current location if permission given
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              let latitude=position.coords.latitude;
+              let longitude=position.coords.longitude;
+              currentPosition={
+                coordinate:{lat:latitude,lng:longitude},
+                content:'<h1> current location </h1>'
+              }
+              markers.push(currentPosition);
+              console.log(markers.length);
+        })
+      }else{ //error handling if permission is not given
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
       }
 
-      function currentPosition(){
-        var currentPosition;
-        //get current location if permission given
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            let latitude=position.coords.latitude;
-            let longitude=position.coords.longitude;
-            currentPosition={
-              coordinate:{lat:latitude,lng:longitude},
-              content:'<h1> current location </h1>'
-            }
-            markers.push(currentPosition);
-            console.log(markers.length);
-      })
-    }else{ //error handling if permission is not given
-        handleLocationError(false, infoWindow, map.getCenter());
-      }
-  }
 
       function geocodeLatLng(geocoder, map, infowindow) {
-        let latData=markers[1].coordinate.lat;
-        let longData=markers[1].coordinate.lng;
+        let latData=markers[markers.length-1].coordinate.lat;
+        let longData=markers[markers.length-1].coordinate.lng;
         var latlng = {lat: latData, lng: longData};
         geocoder.geocode({'location': latlng}, function(results, status) {
           if (status === 'OK') {
