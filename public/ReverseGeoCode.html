@@ -46,24 +46,16 @@
     </style>
   </head>
   <body>
-    <form id="myForm">
-      <select id="mySelect">
-        <option>Apple</option>
-        <option>Pear</option>
-        <option>Banana</option>
-        <option>Orange</option>
-      </select>
-</form>
     <div id="floating-panel">
-      <input id="submit" type="button" value="Save My Current Location">
+      <input id="latlng" type="text" value="40.714224,-73.961452">
+      <input id="submit" type="button" value="Reverse Geocode">
     </div>
     <div id="map"></div>
     <script>
-    let saveLocation; //store the current location that will be saved
     let markers=[
       //First marker object
       {
-        coordinate:{lat:36.7783,lng:-119.4179},
+        coordinate:{lat:36.7783+0.5,lng:-119.4179+0.5},
       }
     ];
       function initMap() {
@@ -131,15 +123,14 @@
         var latlng = {lat: latData, lng: longData};
         geocoder.geocode({'location': latlng}, function(results, status) {
           if (status === 'OK') {
-            if (results[0]) { //since there's a lot of choices for address results, we chose the first one
+            if (results[0]) {
               map.setZoom(11);
-              var marker = new google.maps.Marker({ //creates a marker at specified location
+              var marker = new google.maps.Marker({
                 position: latlng,
                 map: map
               });
-              infowindow.setContent("Address: "+results[0].formatted_address); //info window for the marker will contain the first formatted address
-
-              infowindow.open(map, marker); //automatically opens the info window. However, usually you can add event listener for a click to open the window.
+              infowindow.setContent(results[0].formatted_address);
+              infowindow.open(map, marker);
             } else {
               window.alert('No results found');
             }
