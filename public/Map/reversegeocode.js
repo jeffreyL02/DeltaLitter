@@ -5,13 +5,6 @@ let markers=[
   }
 ];
 
-let database = firebase.database();
-var ref = database.ref('events');
-var data={
-  name: "kyle",
-  smart:1000
-}
-ref.push(data);
 
 
   function initMap() {
