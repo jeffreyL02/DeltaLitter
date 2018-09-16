@@ -1,7 +1,7 @@
 let markers=[
   //First marker object
   {
-    coordinate:{lat:36.7783,lng:-119.4179},
+    coordinate:{lat:36.7783,lng:- 119.4179}
   }
 ];
 let center;
@@ -78,7 +78,7 @@ let request;
   }﻿
 
     function currentPosition(){
-      console.log("running current Position");
+      console.log("current position comes first");
       var currentPosition;
       //get current location if permission given
       if (navigator.geolocation) {
@@ -101,6 +101,7 @@ let request;
 
 
   function geocodeLatLng(geocoder, map, infowindow) {
+    console.log('geocode comes second.');
     let latData=markers[markers.length-1].coordinate.lat;
     let longData=markers[markers.length-1].coordinate.lng;
     var latlng = {lat: latData, lng: longData};
