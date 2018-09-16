@@ -1,0 +1,86 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 90%;
+}
+#hamburger{
+  position: absolute;
+  top: 12vh;
+  left: 3.5vw;
+  height: 8vh;
+  width: 14.23vw;
+  background-color: #fafafa;
+  z-index: 1;
+}
+#hamIcon{
+  margin-top: 1.5vh;
+  margin-left: 0.25vw;
+}
+.hamIconPart{
+  height: 0.95vh;
+  width: 8vw;
+  background-color: #58c074;
+  margin-left: 2.71vw;
+  margin-top: 0.9vh;
+}
+#hamMenuBackground{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  width:100%;
+  height: 90%;
+  bottom:0;
+  background-color: rgba(0,0,0,0.4);
+}
+#hamMenu{
+  position: relative;
+  left: 0;
+  width: 75%;
+  height: 100%;
+  padding-top: 3vh;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
+}
+.selections{
+  display: block;
+  border: #fafafa solid 0.3vh;
+  color: white;
+  background-color: Transparent;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  width: 70%;
+  height: 13vh;
+  text-align: center;
+  position: relative;
+  margin-top: 3vh;
+  left: 15%;
+  font-size: 4.5vh;
+}
+#exitMenu{
+  display: block;
+  position: relative;
+  left: 7vw;
+  bottom: 3vh;
+  color: white;
+  outline: none;
+  height: 5vh;
+  width: 5vh;
+  font-size: 8vh;
+  font-family: "Century Gothic";
+}
+#createEvent{
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5vh;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 4vh;
+  font-family: "Century Gothic";
+  border: none;
+  background-color: Transparent;
+  outline: none;
+}
