@@ -4,20 +4,28 @@ let markers=[
     coordinate:{lat:36.7783,lng:- 119.4179}
   }
 ];
-
-
-
+let center;
+let infowindow;
+let request;
   function initMap() {
+    let center={lat: 34.0434944, lng: -117.95333120000001};
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
-      center: {lat: 40.731, lng: -73.997}
+      center: center
     });
+    //locations of nearby coffee shops
+    request={
+      location: center,
+      radius: '8047', //distance in meters from the center of the map
+      types: ['reycling_center']
+    };
+    let service = new google.maps.places.PlacesService(map); //places service in places API
+    service.nearbySearch(request, callback);
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
-    var infowindow = new google.maps.InfoWindow;
+    infowindow = new google.maps.InfoWindow;
     //get current location
     currentPosition();
-    
     document.getElementById('submit').addEventListener('click', function() {
       currentPosition();
       geocodeLatLng(geocoder, map, infowindow);
@@ -45,6 +53,30 @@ let markers=[
         });
       }
     }
+
+  //callback for nearbySearch
+  function callback(results, status) {
+          if(status == google.maps.places.PlacesServiceStatus.OK){
+              for (var i = 0; i < results.length; i++) {
+                  markers.push(createMarker(results[i]));
+          }
+      }
+  }
+
+  //creates markers and info window for each location passed in by callback
+  function createMarker(place) {
+          var placeLoc = place.geometry.location;
+          var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+          });
+          google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent(place.name);
+              infowindow.open(map, this);
+            });
+
+  }﻿
+
     function currentPosition(){
       console.log("current position comes first");
       var currentPosition;
@@ -65,6 +97,7 @@ let markers=[
     }
 }
   }
+
 
 
   function geocodeLatLng(geocoder, map, infowindow) {
