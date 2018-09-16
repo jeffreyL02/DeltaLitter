@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Reverse Geocoding</title>
+    <link rel="stylesheet" type="text/css" href="map.css"/>
+    <link rel="stylesheet" type="text/css" href="../CSS/global.css">
+  </head>
+  <body>
+    <div id="nav">
+      <p id="logo">&#916;Litter</p>
+      <img id="homeBtn" src="../Assets/navBtn.png"/>
+    </div>
+    <div id="hamburger">
+      <div id="hamIcon">
+        <div class="hamIconPart"></div>
+        <div class="hamIconPart"></div>
+        <div class="hamIconPart"></div>
+      </div>
+    </div>
+    <div id="map"></div>
+    <div id="hamMenuBackground">
+      <div id="hamMenu">
+        <div id="exitMenu">
+          <span id="x">x</span>
+        </div>
+        <button type="button" class="selections" id="recyclables">Recyclables</button>
+        <button type="button" class="selections" id="ewaste">E-waste</button>
+        <button type="button" class="selections" id="chemicals">Chemicals</button>
+        <button type="button" class="selections" id="garbage">Garbage</button>
+        <div id="makeEventBtn">
+          <button type="button" id="createEvent">Create an Event +</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="map.js"></script>
+  <script src="mapNav.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx--4SouKP9c-vY0j-3MTJ7IhpOQgK1ew&callback=initMap"></script>
+</html>
