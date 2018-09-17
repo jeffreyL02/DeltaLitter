@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Reverse Geocoding</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        width: 350px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+      #latlng {
+        width: 225px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="floating-panel"> <!--top panel -->
+      <form id="locationSelect">
+        <select id="Options">
+          <option>E-Waste</option>
+          <option>Normal Trash</option>
+          <option>Chemicals</option>
+          <option>Plastics/Glass/Aluminum Recyclables</option>
+        </select>
+      </form>
+      <input id="submit" type="button" value="Save Now">
+      <input id="recycle" type="button" value="Recycling">
+    </div>
+    <div id="map"></div>
+    <script src=textQuery.js>
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx--4SouKP9c-vY0j-3MTJ7IhpOQgK1ew&libraries=places&callback=initMap" async defer></script>
+  </body>
+</html>

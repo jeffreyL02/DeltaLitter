@@ -64,3 +64,8 @@ html, body {
   top: 81vh;
   left: 3vw;
 }
+#invisBtn{
+  height: 0;
+  width: 0;
+  font-size: 0;
+}

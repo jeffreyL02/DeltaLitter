@@ -16,17 +16,17 @@ html{
 }
 #logo{
   color:#58c074;
-  font-size: 11vw;
-  padding-left: 33.5vw;
-  padding-top: 3vw;
+  font-size: 12.5vw;
+  padding-left: 33vw;
+  padding-top: 1vh;
   display: inline;
   position: absolute;
 }
 #homeBtn{
   display: inline;
   float: right;
-  height: 11vw;
+  height: 12vw;
   position: absolute;
   top: 2vh;
-  right: 1.5vh;
+  right: 4vw;
 }
