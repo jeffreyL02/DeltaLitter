@@ -1,16 +1,12 @@
-let markers=[
-  //First marker object
-  {
-    coordinate:{lat:36.7783,lng:- 119.4179}
-  }
-];
+let markers=[];
+let map;
 let center;
 let infowindow;
 let request;
 let keySearch;
-  function initMap() {
+function initMap() {
     let center={lat: 34.0434944, lng: -117.95333120000001};
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
       center: center
     });
@@ -60,7 +56,7 @@ let keySearch;
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
     //get current location
-    currentPosition();
+
     document.getElementById('submit').addEventListener('click', function() {
       currentPosition();
       geocodeLatLng(geocoder, map, infowindow);
@@ -91,16 +87,20 @@ let keySearch;
 
   //callback for nearbySearch
   function callback(results, status) {
-        markers = [];
-        initMap();
+    for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+      }
+      markers=[];
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results"+results.length);
               for (var i = 0; i < results.length; i++) {
                   markers.push(createMarker(results[i]));
+                  console.log(markers.length);
+              }
           }
-      }
   }
+
 
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
@@ -112,8 +112,8 @@ let keySearch;
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent(place.name);
               infowindow.open(map, this);
-            });
-
+          });
+          return marker;
   }﻿
 
     function currentPosition(){
@@ -136,7 +136,7 @@ let keySearch;
     }
 }
   }
-  function geocodeLatLng(geocoder, map, infowindow) {
+function geocodeLatLng(geocoder, map, infowindow) {
     console.log('geocode comes second.');
     let latData=markers[markers.length-1].coordinate.lat;
     let longData=markers[markers.length-1].coordinate.lng;
