@@ -87,10 +87,10 @@ function initMap() {
 
   //callback for nearbySearch
   function callback(results, status) {
-    for (var i = 0; i < markers.length; i++) {
+    for (var i = 0; i < markers.length; i++) { //loop through to delete each marker first from google maps
           markers[i].setMap(null);
       }
-      markers=[];
+      markers=[]; //delete the locations that were previously saved on the map
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results"+results.length);
@@ -99,6 +99,7 @@ function initMap() {
                   console.log(markers.length);
               }
           }
+          document.getElementById('hamMenuBackground').style.display = 'none';
   }
 
 
@@ -107,14 +108,24 @@ function initMap() {
           var placeLoc = place.geometry.location;
           var marker = new google.maps.Marker({
               map: map,
-              position: place.geometry.location
+              position: place.geometry.location,
+              animation: google.maps.Animation.DROP
           });
+          marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent(place.name);
               infowindow.open(map, this);
           });
           return marker;
+          function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                  marker.setAnimation(null);
+                } else {
+                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+              }
   }﻿
+
 
     function currentPosition(){
       console.log("current position comes first");
