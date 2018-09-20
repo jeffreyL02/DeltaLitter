@@ -5,12 +5,46 @@ let infowindow;
 let request;
 let keySearch;
 function initMap() {
-    let center={lat: 34.0434944, lng: -117.95333120000001};
+    center={lat: 34.0434944, lng: -117.95333120000001};
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
       center: center
     });
     //Buttons on screen
+    //get location button
+    document.getElementById('getLocation').addEventListener('click', function() {
+      //get current location if permission given
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          let latitude=position.coords.latitude;
+          let longitude=position.coords.longitude;
+          center={
+            lat: latitude,
+            lng: longitude
+          }
+          map.setCenter(center);
+          map.setZoom(10);
+        })
+        //displays a marker for user's current location on map
+        var userLocationMarker = new google.maps.Marker({
+        position: center,
+        map: map,
+        title: 'Hello World!'
+        });
+        //add an infowindow to show where the user is
+        userLocationMarker.addListener('click', function() {
+          infowindow.open(map, userLocationMarker);
+        });
+        //infoWindow for the user's current location marker
+        var infowindow = new google.maps.InfoWindow({
+          content: 'THIS IS YOUR CURRENT LOCATION'
+        });
+      }
+      else{ //error handling if permission is not given
+      handleLocationError(false, infoWindow, map.getCenter());
+      }
+    });
+
     document.getElementById('recyclables').addEventListener('click', function() {
       let keySearch="recyling center";
       request={
@@ -145,7 +179,7 @@ function initMap() {
   }else{ //error handling if permission is not given
       handleLocationError(false, infoWindow, map.getCenter());
     }
-}
+  }
   }
 function geocodeLatLng(geocoder, map, infowindow) {
     console.log('geocode comes second.');
