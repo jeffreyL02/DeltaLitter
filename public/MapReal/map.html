@@ -23,15 +23,46 @@
     <div id="hamMenuBackground">
       <div id="hamMenu">
         <div id="exitMenu">
-          <span id="x">x</span>
+          <span id="xMenu">x</span>
         </div>
         <button type="button" class="selections" id="recyclables">Recyclables</button>
         <button type="button" class="selections" id="ewaste">E-waste</button>
         <button type="button" class="selections" id="chemicals">Chemicals</button>
         <button type="button" class="selections" id="garbage">Garbage</button>
-        <div id="makeEventBtn">
-          <button type="button" id="createEvent">Create an Event +</button>
+        <button type="button" class="selections" id="garbage">Events Near Me</button>
+        <p id="radiusName">Radius (miles): <span id="value"></span></p>
+        <input type="range" min="1" max="50" value="25" id="radius">
+        <p id="currentRadius"></p>
+        <button type="button" id="createEvent">Create an Event +</button>
+      </div>
+    </div>
+    <div id='eventModalBack'>
+      <div id="eventModal">
+        <div id="exitMod">
+          <span id="xMod">x</span>
         </div>
+        <form>
+          <h1 id="createEventHeader">Create An Event</h1>
+          <h4 class="subcategories" id="nameSub">Event Name</h4>
+          <input type="text" placeholder="John Smith's Recycling Party" id="name"/>
+          <h4 class="subcategories" id="descSub">Description</h4>
+          <input type="text" id="desc"/>
+          <div id="addressCat">
+            <h4 class="subcategories" id="addressSub">Address</h4>
+            <input type="text" id="address"/>
+          </div>
+          <div id="dateCat">
+            <h4 class="subcategories" id="dateSub">Date</h4>
+            <input type="date" id="date"/>
+          </div>
+          <div>
+            <h4 class="subcategories" id="startTimeSub">Starting Time</h4>
+            <input type="time" id="startTime"/>
+            <h4 class="subcategories" id="endTimeSub">Ending Time</h4>
+            <input type="time" id="endTime"/>
+          </div>
+          <button type="button" id="submitEvent">Create</button>
+        </form>
       </div>
     </div>
   </body>

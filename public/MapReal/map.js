@@ -1,3 +1,16 @@
+/*
+Dont touch this kyle dang
+*/
+let radius = document.getElementById("radius");
+let value = document.getElementById("value");
+value.innerHTML = radius.value;
+
+radius.oninput = function() {
+  value.innerHTML = this.value;
+}
+/*
+Dont touch this kyle dang
+*/
 let num=0;
 let markers=[
   {
