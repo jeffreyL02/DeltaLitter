@@ -1,55 +1,21 @@
-let markers=[];
-let map;
+let markers=[
+  //First marker object
+  {
+    coordinate:{lat:36.7783,lng:- 119.4179}
+  }
+];
 let center;
 let infowindow;
 let request;
 let keySearch;
-function initMap() {
-    //by default, ask permission for current location to center map
-    map = new google.maps.Map(document.getElementById('map'), {
+  function initMap() {
+    let center={lat: 34.0434944, lng: -117.95333120000001};
+    var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
       center: center
     });
-      //get current location if permission given
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          let latitude=position.coords.latitude;
-          let longitude=position.coords.longitude;
-          center={
-            lat: latitude,
-            lng: longitude
-          }
-          // set map center
-          map.setCenter(center);
-          map.setZoom(12);
-        })
-        //displays a marker for user's current location on map
-        var userLocationMarker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Hello World!'
-        });
-        //add an infowindow to show where the user is
-        userLocationMarker.addListener('click', function() {
-          infowindow.open(map, userLocationMarker);
-        });
-        //infoWindow for the user's current location marker
-        var infowindow = new google.maps.InfoWindow({
-          content: 'THIS IS YOUR CURRENT LOCATION'
-        });
-      }
-      else{ //error handling if permission is not given
-      //center for map is set to default coordinates if permission not given
-      center={lat: 34.0434944, lng: -117.95333120000001};
-      map.setCenter(center);
-      map.setZoom(12);
-      handleLocationError(false, infoWindow, map.getCenter());
-      }
-
-    document.getElementById('recyclables').addEventListener('click', function() {
-      console.log("center coords for recylables");
-      console.log(center);
-
+    //Buttons on screen
+    document.getElementById('recycle').addEventListener('click', function() {
       let keySearch="recyling center";
       request={
         location: center,
@@ -59,42 +25,13 @@ function initMap() {
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
-    document.getElementById('ewaste').addEventListener('click', function() {
-      let keySearch="e waste recycling";
-      request={
-        location: center,
-        radius: '8047', //distance in meters from the center of the map
-        query: keySearch
-      };
-      let service = new google.maps.places.PlacesService(map); //places service in places API
-      service.textSearch(request, callback);
-    });
-    document.getElementById('chemicals').addEventListener('click', function() {
-      let keySearch="chemical reycling";
-      request={
-        location: center,
-        radius: '8047', //distance in meters from the center of the map
-        query: keySearch
-      };
-      let service = new google.maps.places.PlacesService(map); //places service in places API
-      service.textSearch(request, callback);
-    });
-    document.getElementById('garbage').addEventListener('click', function() {
-      let keySearch="garbage disposal";
-      request={
-        location: center,
-        radius: '8047', //distance in meters from the center of the map
-        query: keySearch
-      };
-      let service = new google.maps.places.PlacesService(map); //places service in places API
-      service.textSearch(request, callback);
-    });
+
 
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
     //get current location
-
+    currentPosition();
     document.getElementById('submit').addEventListener('click', function() {
       currentPosition();
       geocodeLatLng(geocoder, map, infowindow);
@@ -125,45 +62,26 @@ function initMap() {
 
   //callback for nearbySearch
   function callback(results, status) {
-    for (var i = 0; i < markers.length; i++) { //loop through to delete each marker first from google maps
-          markers[i].setMap(null);
-      }
-      markers=[]; //delete the locations that were previously saved on the map
-          console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
-            console.log("number of results"+results.length);
               for (var i = 0; i < results.length; i++) {
                   markers.push(createMarker(results[i]));
-                  console.log(markers.length);
-              }
           }
-          document.getElementById('hamMenuBackground').style.display = 'none';
+      }
   }
-
 
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
           var placeLoc = place.geometry.location;
           var marker = new google.maps.Marker({
               map: map,
-              position: place.geometry.location,
-              animation: google.maps.Animation.DROP
+              position: place.geometry.location
           });
-          marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent(place.name);
               infowindow.open(map, this);
-          });
-          return marker;
-          function toggleBounce() {
-                if (marker.getAnimation() !== null) {
-                  marker.setAnimation(null);
-                } else {
-                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-              }
-  }﻿
+            });
 
+  }﻿
 
     function currentPosition(){
       console.log("current position comes first");
@@ -183,9 +101,12 @@ function initMap() {
   }else{ //error handling if permission is not given
       handleLocationError(false, infoWindow, map.getCenter());
     }
+}
   }
-  }
-function geocodeLatLng(geocoder, map, infowindow) {
+
+
+
+  function geocodeLatLng(geocoder, map, infowindow) {
     console.log('geocode comes second.');
     let latData=markers[markers.length-1].coordinate.lat;
     let longData=markers[markers.length-1].coordinate.lng;
