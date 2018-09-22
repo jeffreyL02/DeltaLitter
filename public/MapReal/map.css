@@ -132,6 +132,7 @@ html, body {
   border-radius: 10.5%;
   margin: auto;
   margin-top: 12.5vh;
+  padding-top: 4vh;
 }
 #submitEvent{
   width: 100%;
@@ -142,8 +143,23 @@ html, body {
   border: none;
   background-color: Transparent;
   outline: none;
+  margin-top: 9vh;
+  border: #58c074 solid 0.3vh;
+  width: 35%;
+  border-radius: 1.25vh;
+  margin-left: 30vw;
 }
-
+form{
+  margin-top: 0.5vh;
+}
+#exitMod{
+  color: #58c074;
+  font-family: "century gothic";
+  position: absolute;
+  top: 12vh;
+  left: 11vw;
+  font-size: 5vh;
+}
 #createEventHeader{
   color: #58c074;
   font-size: 5vh;
@@ -151,22 +167,53 @@ html, body {
   font-family: "century gothic";
   font-weight: 100;
 }
-#addressCat{
-  display:inline;
-  width:40%;
-  margin-left: 10%;
+.subcategories{
+  color: #58c074;
+  font-size: 3.1vh;
+  font-family: "century gothic";
+  font-weight: 100;
+  margin-left: 5vw;
 }
-#dateCat{
-  display:inline;
-  width:40%;
-  margin-right: 10%;
+.credentials{
+  font-size: 1.75vh;
+  border: 0.3vh solid rgba(88,192,116,.25);
+  background-color: #fafafa;
+  outline: none;
+  height: 3.7vh;
+  padding-left: 2vw;
+  margin-bottom: 1vh;
+}
+.credentials:focus{
+  border-bottom: 0.3vh solid #8df3a9;
+  transition-duration: 0.17s;
+}
+#name{
+  width: 90%;
+  margin-left: 3%;
+}
+#desc{
+  width: 90%;
+  margin-left: 3%;
+  height: 10vh;
+}
+#address{
+  width:90%;
+  margin-left: 3%;
+}
+#date{
+  width: 90%;
+  margin-left: 3%;
+}
+#startCat{
+  display: inline;
+  position: absolute;
+  left: 8%;
+  top: 73%;
+}
+#endCat{
+  position: absolute;
+  top: 73%;
+  left:50%;
+  display: inline;
   float: right;
-}
-#startTime{
-  display:inline;
-  width:50%;
-}
-#endTime{
-  display:inline;
-  width:50%;
 }
