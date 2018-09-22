@@ -20,6 +20,6 @@ exitMod.addEventListener('click', function(){
   hamMenu.style.display = "none";
 });
 
-window.scrollTo(0, 1); 
-/mobile/i.test(navigator.userAgent) && setTimeout(function
-() { window.scrollTo(0, 1); }, 1000);
+setTimeout(function () {
+  window.scrollTo(0, 1);
+}, 1000);
