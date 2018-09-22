@@ -13,6 +13,7 @@ let center;
 let infowindow;
 let request;
 let keySearch;
+
 function initMap() {
     //by default, ask permission for current location to center map
     map = new google.maps.Map(document.getElementById('map'), {
@@ -22,6 +23,7 @@ function initMap() {
       //get current location if permission given
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+        console.log('dum');
           let latitude=position.coords.latitude;
           let longitude=position.coords.longitude;
           center={
@@ -46,19 +48,25 @@ function initMap() {
         var infowindow = new google.maps.InfoWindow({
           content: 'THIS IS YOUR CURRENT LOCATION'
         });
-      }
-      else{ //error handling if permission is not given
+      } else{ //error handling if permission is not given
       //center for map is set to default coordinates if permission not given
-      center={lat: 34.0434944, lng: -117.95333120000001};
+      console.log("Location permission not given ");
+      center={
+        lat: 34.0434944,
+        lng: -117.95333120000001
+      }
       map.setCenter(center);
       map.setZoom(12);
       handleLocationError(false, infoWindow, map.getCenter());
-      }
+    }
+
 
     document.getElementById('recyclables').addEventListener('click', function() {
       console.log("center coords for recylables");
       console.log(center);
-
+      if(center==null){ //if permission was not given when prompted for geolocation
+        centerNull();
+      }
       let keySearch="recyling center";
       request={
         location: center,
@@ -69,6 +77,9 @@ function initMap() {
       service.textSearch(request, callback);
     });
     document.getElementById('ewaste').addEventListener('click', function() {
+      if(center==null){ //if permission was not given when prompted for geolocation
+        centerNull();
+      }
       let keySearch="e waste recycling";
       request={
         location: center,
@@ -79,6 +90,9 @@ function initMap() {
       service.textSearch(request, callback);
     });
     document.getElementById('chemicals').addEventListener('click', function() {
+      if(center==null){ //if permission was not given when prompted for geolocation
+        centerNull();
+      }
       let keySearch="chemical reycling";
       request={
         location: center,
@@ -89,6 +103,9 @@ function initMap() {
       service.textSearch(request, callback);
     });
     document.getElementById('garbage').addEventListener('click', function() {
+      if(center==null){ //if permission was not given when prompted for geolocation
+        centerNull();
+      }
       let keySearch="garbage disposal";
       request={
         location: center,
@@ -145,6 +162,8 @@ function initMap() {
                   markers.push(createMarker(results[i]));
                   console.log(markers.length);
               }
+              map.fitBounds(bounds);
+              map.panToBounds(bounds);
           }
           document.getElementById('hamMenuBackground').style.display = 'none';
   }
@@ -153,11 +172,14 @@ function initMap() {
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
           var placeLoc = place.geometry.location;
+          let bounds  = new google.maps.LatLngBounds();
           var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
               animation: google.maps.Animation.DROP
           });
+          loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+          bounds.extend(loc);
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent(place.name);
@@ -216,5 +238,16 @@ function geocodeLatLng(geocoder, map, infowindow) {
       } else {
         window.alert('Geocoder failed due to: ' + status);
       }
+    });
+  }
+  function centerNull (){ //function to set default coordinates for the map if gelocation permission was denied
+    console.log('center was null')
+    center={
+      lat: 34.0434944,
+      lng: -117.95333120000001
+    }
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: center
     });
   }
