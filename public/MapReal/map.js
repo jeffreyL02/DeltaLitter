@@ -165,7 +165,7 @@ function initMap() {
               map.fitBounds(bounds);
               map.panToBounds(bounds);
           }
-          document.getElementById('hamMenuBackground').style.display = 'none';
+    document.getElementById('hamMenuBackground').style.display = 'none';
   }
 
 
