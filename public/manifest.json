@@ -1,0 +1,9 @@
+{
+    "name": "DeltaLitter",
+    "description": "Decreasing Litter",
+    "lang": "en-US",
+    "start_url": "/Login/login.html",
+    "scope": "/",
+    "display": "fullscreen",
+    "orientation": "portrait"
+}
