@@ -1,3 +1,12 @@
+
+let radius = document.getElementById("radius");
+let value = document.getElementById("value");
+value.innerHTML = radius.value;
+
+radius.oninput = function() {
+  value.innerHTML = this.value;
+}
+
 let markers=[];
 let map;
 let center;
