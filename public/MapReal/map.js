@@ -64,23 +64,27 @@ function initMap() {
     document.getElementById('recyclables').addEventListener('click', function() {
       console.log("center coords for recylables");
       console.log(center);
+      let userRadius=getMapRadius(); //contains radius specified by slider
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
       let keySearch="recyling center";
+      console.log("marker radius " +userRadius);
       request={
         location: center,
-        radius: '8047', //distance in meters from the center of the map
+        radius: `${userRadius}`, //distance in meters from the center of the map, using the radius specified by user in meters
         query: keySearch
       };
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
+
     document.getElementById('ewaste').addEventListener('click', function() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
       let keySearch="e waste recycling";
+
       request={
         location: center,
         radius: '8047', //distance in meters from the center of the map
@@ -89,6 +93,7 @@ function initMap() {
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
+
     document.getElementById('chemicals').addEventListener('click', function() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
@@ -96,7 +101,7 @@ function initMap() {
       let keySearch="chemical reycling";
       request={
         location: center,
-        radius: '8047', //distance in meters from the center of the map
+        radius: 8047, //distance in meters from the center of the map
         query: keySearch
       };
       let service = new google.maps.places.PlacesService(map); //places service in places API
@@ -121,10 +126,7 @@ function initMap() {
     infowindow = new google.maps.InfoWindow;
     //get current location
 
-    document.getElementById('submit').addEventListener('click', function() {
-      currentPosition();
-      geocodeLatLng(geocoder, map, infowindow);
-    })
+
     for(let i=0;i<markers.length;i++){
       addMarker(markers[i]);
     }
@@ -162,8 +164,6 @@ function initMap() {
                   markers.push(createMarker(results[i]));
                   console.log(markers.length);
               }
-              map.fitBounds(bounds);
-              map.panToBounds(bounds);
           }
           document.getElementById('hamMenuBackground').style.display = 'none';
   }
@@ -171,15 +171,14 @@ function initMap() {
 
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
-          var placeLoc = place.geometry.location;
+
           let bounds  = new google.maps.LatLngBounds();
           var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
               animation: google.maps.Animation.DROP
           });
-          loc = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
-          bounds.extend(loc);
+
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent(place.name);
@@ -250,4 +249,9 @@ function geocodeLatLng(geocoder, map, infowindow) {
       zoom: 8,
       center: center
     });
+  }
+  function getMapRadius (){ //returns value from radius slider
+    let slider=document.getElementById("radius");
+    return slider.value/0.00062137;
+    //ADD CONVERSION FROM MILES TO METERS
   }
