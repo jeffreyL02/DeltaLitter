@@ -165,7 +165,7 @@ function initMap() {
                   console.log(markers.length);
               }
           }
-          document.getElementById('hamMenuBackground').style.display = 'none';
+    document.getElementById('hamMenuBackground').style.display = 'none';
   }
 
 

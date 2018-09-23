@@ -19,3 +19,7 @@ exitMod.addEventListener('click', function(){
   eventModalBack.style.display = "none";
   hamMenu.style.display = "none";
 });
+
+setTimeout(function () {
+  window.scrollTo(0, 1);
+}, 1000);

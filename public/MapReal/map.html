@@ -3,6 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Reverse Geocoding</title>
     <link rel="stylesheet" type="text/css" href="map.css"/>
     <link rel="stylesheet" type="text/css" href="../CSS/global.css">
@@ -41,25 +42,23 @@
         <div id="exitMod">
           <span id="xMod">x</span>
         </div>
+        <h1 id="createEventHeader">Create An Event</h1>
         <form>
-          <h1 id="createEventHeader">Create An Event</h1>
           <h4 class="subcategories" id="nameSub">Event Name</h4>
-          <input type="text" placeholder="John Smith's Recycling Party" id="name"/>
-          <h4 class="subcategories" id="descSub">Description</h4>
-          <input type="text" id="desc"/>
-          <div id="addressCat">
-            <h4 class="subcategories" id="addressSub">Address</h4>
-            <input type="text" id="address"/>
-          </div>
-          <div id="dateCat">
-            <h4 class="subcategories" id="dateSub">Date</h4>
-            <input type="date" id="date"/>
-          </div>
-          <div>
+          <input type="text" placeholder="John Smith's Recycling Party" class="credentials" id="name"/>
+          <h4 class="subcategories" placeholder="Description of your event here" id="descSub">Description</h4>
+          <input type="text" class="credentials" id="desc"/>
+          <h4 class="subcategories" id="addressSub">Address</h4>
+          <input type="text" class="credentials" placeholder="#### Streetname, City, State Zipcode" id="address"/>
+          <h4 class="subcategories" id="dateSub">Date</h4>
+          <input type="date" class="credentials" id="date"/>
+          <div id="startCat">
             <h4 class="subcategories" id="startTimeSub">Starting Time</h4>
-            <input type="time" id="startTime"/>
+            <input type="text" class="credentials" placeholder="12:00 PM" id="startTime"/>
+          </div>
+          <div id="endCat">
             <h4 class="subcategories" id="endTimeSub">Ending Time</h4>
-            <input type="time" id="endTime"/>
+            <input type="text" class="credentials" placeholder="12:00 PM" id="endTime"/>
           </div>
           <button type="button" id="submitEvent">Create</button>
         </form>
