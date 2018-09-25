@@ -33,21 +33,23 @@ function initMap() {
           // set map center
           map.setCenter(center);
           map.setZoom(12);
-        })
-        //displays a marker for user's current location on map
-        var userLocationMarker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Hello World!'
-        });
-        //add an infowindow to show where the user is
-        userLocationMarker.addListener('click', function() {
+          var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+          //displays a marker for user's current location on map
+          var userLocationMarker = new google.maps.Marker({
+          position: center,
+          map: map,
+          title: 'Hello World!',
+          icon:image
+          });
+
+          //infoWindow for the user's current location marker
+          var infowindow = new google.maps.InfoWindow({
+            content: 'THIS IS YOUR CURRENT LOCATION'
+          });
+          //add an infowindow to show user's currrent location. Opens automatically
           infowindow.open(map, userLocationMarker);
-        });
-        //infoWindow for the user's current location marker
-        var infowindow = new google.maps.InfoWindow({
-          content: 'THIS IS YOUR CURRENT LOCATION'
-        });
+      }) //end of get user's position function
+
       } else{ //error handling if permission is not given
       //center for map is set to default coordinates if permission not given
       console.log("Location permission not given ");
@@ -84,7 +86,6 @@ function initMap() {
         centerNull();
       }
       let keySearch="e waste recycling";
-
       request={
         location: center,
         radius: '8047', //distance in meters from the center of the map
@@ -101,7 +102,7 @@ function initMap() {
       let keySearch="chemical reycling";
       request={
         location: center,
-        radius: 8047, //distance in meters from the center of the map
+        radius: '8047', //distance in meters from the center of the map
         query: keySearch
       };
       let service = new google.maps.places.PlacesService(map); //places service in places API
@@ -181,7 +182,8 @@ function initMap() {
 
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent(place.name);
+              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                place.formatted_address + '<br>'+'<p>Rating</p>'+place.rating+'</div>');
               infowindow.open(map, this);
           });
           return marker;
