@@ -1,5 +1,6 @@
+const FIREBASE_STORAGE = firebase.storage();
 var camera = document.getElementById("camera");
-camera.addEventListener('change', function(e){
+camera.addEventListener("click", function(e){
   var file = e.target.files[0];
   var storageRef = firebase.storage().ref('/upload/' + file.name);
   var task = storageRef.put(file);
@@ -16,7 +17,7 @@ task.on('stage_changed',
 
   }
 );
-if(document.getElementById("form1").files.length == 0 ){
+if(document.getElementById("form1").files.length === 0 ){
   console.log("no files selected");
 }
 else{
