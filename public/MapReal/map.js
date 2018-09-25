@@ -1,4 +1,4 @@
-
+window.scrollTo(0,1);
 let radius = document.getElementById("radius");
 let value = document.getElementById("value");
 value.innerHTML = radius.value;
