@@ -1,3 +1,4 @@
+window.scrollTo(0,1);
 const firebaseDB = firebase.database();
 const firebaseAuth = firebase.auth();
 let btnSignUp = document.getElementById("btnSignup");
