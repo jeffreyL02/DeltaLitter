@@ -25,7 +25,9 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(position) {
         console.log('dum');
           let latitude=position.coords.latitude;
+          console.log("this is user's current latitude: "+latitude);
           let longitude=position.coords.longitude;
+          console.log("this is user's current longitude: "+longitude);
           center={
             lat: latitude,
             lng: longitude
