@@ -4,9 +4,9 @@ let recycleTab = document.getElementById("recycleTab");
 let reuseText = document.getElementById("reusabilityText");
 let infoText = document.getElementById("infoText");
 let recycleText = document.getElementById("recycleText");
-reuseText.style.display="block";
-infoText.style.display="block";
-recycleText.style.display="block";
+reuseText.style.display="none";
+infoText.style.display="none";
+recycleText.style.display="none";
 //reuseTab.addEventListener('click', changeVis(reuseText));
 reuseTab.addEventListener('click',function changeVis(){
   let text = document.getElementById("reusabilityText");

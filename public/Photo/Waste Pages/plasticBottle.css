@@ -8,10 +8,12 @@
   padding-bottom: 1.2vh;
   color:#fafafa;
 }
+/* styles of area with all of the very basic information; recylability,
+material, etc */
 #wrapper{
   text-align: center;
 }
-#glance{
+#basicInfo{
   width:85%;
   background-color: #fafafa;
   padding:1.8vh;
@@ -19,25 +21,16 @@
   text-align: center;
   border-radius: 25px
 }
-#glance p{
-  font-size: 6vw;
-  padding-top: .5vh;
-  padding-bottom:1vh;
-}
-#navigation{
-  vertical-align: top;
-  padding-left:1vh
-}
-#navigation a{
-  font-size:7.3vw;
-  text-decoration: none;
-  color:#fafafa;
-  padding-bottom:1vh;
-}
 #picture{
   width:55%;
   padding-left:3%;
 }
+#basicInfo p{
+  font-size: 6vw;
+  padding-top: .5vh;
+  padding-bottom:1vh;
+}
+/* styles of the more detailed info */
 .tabs{
   font-size:10vw;
   color:#fafafa;
@@ -47,7 +40,7 @@
 }
 .descriptions{
   padding-left:3vw;
-  display:block;
+  display:none;
   font-size:8vw;
   color:#fafafa;
   padding-top:.5vh;
