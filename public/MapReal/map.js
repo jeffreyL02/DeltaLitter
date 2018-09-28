@@ -260,6 +260,7 @@ function geocodeLatLng(geocoder, map, infowindow) {
     //ADD CONVERSION FROM MILES TO METERS
   }
 
+/*
 const database = firebase.database();
 var ref = database.ref("eventInfo");
 var name = document.getElementById("name");
@@ -281,3 +282,4 @@ function createEvent(){
     }
     database.ref.push(data);
 }
+*/
