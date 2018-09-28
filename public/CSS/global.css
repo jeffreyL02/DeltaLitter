@@ -11,7 +11,7 @@ input, input:before, input:after {
     -moz-user-select: initial;
     -ms-user-select: initial;
     user-select: initial;
-   } 
+   }
 html{
   height:100%;
   background-image: linear-gradient(to bottom right, #379c53, #75e092);
@@ -23,8 +23,8 @@ html{
 }
 #logo{
   color:#58c074;
-  font-size: 12vh;
-  padding-left: 33vw;
+  font-size: 8vh;
+  padding-left: 31vw;
   padding-top: 1vh;
   display: inline;
   position: absolute;
