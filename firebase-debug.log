@@ -1,0 +1,18 @@
+[debug] [2018-09-27T22:30:32.608Z] ----------------------------------------------------------------------
+[debug] [2018-09-27T22:30:32.610Z] Command:       /usr/local/bin/node /Users/William/.npm-global/bin/firebase deploy
+[debug] [2018-09-27T22:30:32.611Z] CLI Version:   3.19.3
+[debug] [2018-09-27T22:30:32.611Z] Platform:      darwin
+[debug] [2018-09-27T22:30:32.611Z] Node Version:  v10.7.0
+[debug] [2018-09-27T22:30:32.612Z] Time:          Thu Sep 27 2018 15:30:32 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-09-27T22:30:32.612Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-27T22:30:32.623Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-09-27T22:30:32.623Z] > authorizing via signed-in user
+[debug] [2018-09-27T22:30:32.625Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/deltalitter  
+  
+ Thu Sep 27 2018 15:30:32 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-09-27T22:30:33.008Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-27T22:30:33.010Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/deltalitter/tokens  
+  
+ Thu Sep 27 2018 15:30:33 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-09-27T22:30:33.304Z] <<< HTTP RESPONSE 200

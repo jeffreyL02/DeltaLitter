@@ -1,25 +1,10 @@
-const FIREBASE_STORAGE = firebase.storage();
+const database = firebase.database();
+var ref = database.ref("pictures");
 var camera = document.getElementById("camera");
-camera.addEventListener("click", function(e){
-  var file = e.target.files[0];
-  var storageRef = firebase.storage().ref('/upload/' + file.name);
-  var task = storageRef.put(file);
-});
-task.on('stage_changed',
-  function progress(snapshot) {
-    var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    uploader.value = percentage;
-  },
-  function error(err) {
-
-  },
-  function complete() {
-
+var submitBtn = document.getElementById("submitBtn");
+submitBtn.addEventListener('click', function(){
+  var data{
+    pic: camera.value()
   }
-);
-if(document.getElementById("form1").files.length === 0 ){
-  console.log("no files selected");
-}
-else{
-  document.getElementById("form1").submit();
-}
+  ref.push(data);
+});

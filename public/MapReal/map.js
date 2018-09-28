@@ -25,7 +25,9 @@ function initMap() {
         navigator.geolocation.getCurrentPosition(function(position) {
         console.log('dum');
           let latitude=position.coords.latitude;
+          console.log("this is user's current latitude: "+latitude);
           let longitude=position.coords.longitude;
+          console.log("this is user's current longitude: "+longitude);
           center={
             lat: latitude,
             lng: longitude
@@ -257,3 +259,27 @@ function geocodeLatLng(geocoder, map, infowindow) {
     return slider.value/0.00062137;
     //ADD CONVERSION FROM MILES TO METERS
   }
+
+/*
+const database = firebase.database();
+var ref = database.ref("eventInfo");
+var name = document.getElementById("name");
+var desc = document.getElementById("desc");
+var address = document.getElementById("address");
+var date = document.getElementById("date");
+var startTime = document.getElementById("startTime");
+var endTime = document.getElementById("endTime");
+var submitBtn = document.getElementById("submitEvent");
+submitBtn.mousePressed(createEvent);
+function createEvent(){
+    var data{
+      eventName:name.value,
+      description:desc.value,
+      eventAddress:address.value,
+      eventDate:date.value,
+      startingTime:startTime.value,
+      endingTime:endTime.value
+    }
+    database.ref.push(data);
+}
+*/
