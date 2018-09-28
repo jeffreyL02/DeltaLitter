@@ -4,6 +4,7 @@ default basic css for all file*/
     margin:0;
     padding:0;
     -webkit-user-select:none;
+    font-family: "Futura-Medium"
 }
 html{
   height:100%;
