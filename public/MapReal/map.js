@@ -269,7 +269,7 @@ var endTime = document.getElementById("endTime");
 var submitBtn = document.getElementById("submitEvent");
 submitBtn.mousePressed(createEvent);
 function createEvent(){
-    var data{
+    var data={
       eventName:name.value,
       description:desc.value,
       eventAddress:address.value,
