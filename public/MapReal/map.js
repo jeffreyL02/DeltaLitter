@@ -348,7 +348,7 @@ function createEvent(){
 }
 */
 const FIREBASE_DATABASE = firebase.database();
-const name = document.getElementById("name").value;
+var name = document.getElementById("name").value;
 const events={
   desc: document.getElementById("desc").value,
   address: document.getElementById("address").value,
