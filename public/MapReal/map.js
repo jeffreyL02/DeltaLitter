@@ -53,6 +53,7 @@ function initMap() {
           });
           //add an infowindow to show user's currrent location. Opens automatically
           infowindow.open(map, userLocationMarker);
+          markers.push(userLocationMarker); //pushes user's location marker object to markers array
       }) //end of get user's position function
 
       } else{ //error handling if permission is not given
@@ -163,10 +164,11 @@ function initMap() {
   //callback for nearbySearch
   function callback(results, status) {
     console.log("Markers length: "+markers.length);
-    for (var i = 0; i < markers.length; i++) { //loop through to delete each marker first from google maps
+    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
         markers[i].setMap(null);
     }
-      markers=[]; //delete the locations that were previously saved on the map
+      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results. 
+
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results"+results.length);
