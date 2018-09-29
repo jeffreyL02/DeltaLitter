@@ -314,23 +314,26 @@ function geocodeLatLng(geocoder, map, infowindow) {
 
   }
 
-  const database = firebase.database();
-  var ref = database.ref("eventInfo");
-  var name = document.getElementById("name");
-  var desc = document.getElementById("desc");
-  var address = document.getElementById("address");
-  var date = document.getElementById("date");
-  var startTime = document.getElementById("startTime");
-  var endTime = document.getElementById("endTime");
-  var submitBtn = document.getElementById("submitEvent");
-  submitBtn.addEventListener('click',function createEvents(){
-      var data={
-        eventName:name.value,
-        description:desc.value,
-        eventAddress:address.value,
-        eventDate:date.value,
-        startingTime:startTime.value,
-        endingTime:endTime.value
-      }
-      database.ref("eventInfo").push(data);
-  });
+/*
+const database = firebase.database();
+var ref = database.ref("eventInfo");
+var name = document.getElementById("name");
+var desc = document.getElementById("desc");
+var address = document.getElementById("address");
+var date = document.getElementById("date");
+var startTime = document.getElementById("startTime");
+var endTime = document.getElementById("endTime");
+var submitBtn = document.getElementById("submitEvent");
+submitBtn.mousePressed(createEvent);
+function createEvent(){
+    var data{
+      eventName:name.value,
+      description:desc.value,
+      eventAddress:address.value,
+      eventDate:date.value,
+      startingTime:startTime.value,
+      endingTime:endTime.value
+    }
+    database.ref.push(data);
+}
+*/
