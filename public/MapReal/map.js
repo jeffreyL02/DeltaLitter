@@ -1,3 +1,4 @@
+//dont touch this kyle
 window.scrollTo(0,1);
 let radius = document.getElementById("radius");
 let value = document.getElementById("value");
@@ -274,7 +275,7 @@ function geocodeLatLng(geocoder, map, infowindow) {
       }
     });
   }
-  
+
   function centerNull (){ //function to set default coordinates for the map if gelocation permission was denied
     console.log('center was null')
     center={
@@ -325,43 +326,27 @@ function geocodeLatLng(geocoder, map, infowindow) {
     google.maps.event.trigger(map, 'resize');
     map.setCenter(currCenter);
   };
-/*
-const database = firebase.database();
-var ref = database.ref("eventInfo");
-var name = document.getElementById("name");
-var desc = document.getElementById("desc");
-var address = document.getElementById("address");
-var date = document.getElementById("date");
-var startTime = document.getElementById("startTime");
-var endTime = document.getElementById("endTime");
-var submitBtn = document.getElementById("submitEvent");
-submitBtn.mousePressed(createEvent);
-function createEvent(){
-    var data{
-      eventName:name.value,
-      description:desc.value,
-      eventAddress:address.value,
-      eventDate:date.value,
-      startingTime:startTime.value,
-      endingTime:endTime.value
-    }
-    database.ref.push(data);
-}
-*/
+
+//dont touch this kyle
+let name;
+let events={};
 const FIREBASE_DATABASE = firebase.database();
-var name = document.getElementById("name").value;
-const events={
-  desc: document.getElementById("desc").value,
-  address: document.getElementById("address").value,
-  date: document.getElementById("date").value,
-  startTime: document.getElementById("startTime").value,
-  endTime: document.getElementById("endTime").value
-}
 document.getElementById("submitEvent").addEventListener('click', function(){
+  name = document.getElementById('name').value;
+  events={
+    desc: document.getElementById("desc").value,
+    address: document.getElementById("address").value,
+    date: document.getElementById("date").value,
+    startTime: document.getElementById("startTime").value,
+    endTime: document.getElementById("endTime").value
+  }
   FIREBASE_DATABASE.ref('events/' + name).set(events).then(
     function(){
       console.log('faggot');
     }).catch(function(error){
       console.log(error);
     });
+  document.getElementById('eventForm').reset();
+  document.getElementById('eventModalBack').style.display = 'none';
+  document.getElementById('hamMenuBackground').style.display = 'none';
 });
