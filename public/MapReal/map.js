@@ -13,6 +13,9 @@ let center;
 let infowindow;
 let request;
 let keySearch;
+let latitude; //user's current latitude
+let longitude; //user's current longitude
+let userRadius;
 
 function initMap() {
     //by default, ask permission for current location to center map
@@ -24,8 +27,10 @@ function initMap() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
         console.log('dum');
-          let latitude=position.coords.latitude;
-          let longitude=position.coords.longitude;
+          latitude=position.coords.latitude;
+          console.log("this is user's current latitude: "+latitude);
+          longitude=position.coords.longitude;
+          console.log("this is user's current longitude: "+longitude);
           center={
             lat: latitude,
             lng: longitude
@@ -48,6 +53,7 @@ function initMap() {
           });
           //add an infowindow to show user's currrent location. Opens automatically
           infowindow.open(map, userLocationMarker);
+          markers.push(userLocationMarker); //pushes user's location marker object to markers array
       }) //end of get user's position function
 
       } else{ //error handling if permission is not given
@@ -66,7 +72,7 @@ function initMap() {
     document.getElementById('recyclables').addEventListener('click', function() {
       console.log("center coords for recylables");
       console.log(center);
-      let userRadius=getMapRadius(); //contains radius specified by slider
+      userRadius=getMapRadius(); //contains radius specified by slider
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
@@ -85,6 +91,7 @@ function initMap() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
+      userRadius=getMapRadius(); //contains radius specified by slider
       let keySearch="e waste recycling";
       request={
         location: center,
@@ -99,6 +106,7 @@ function initMap() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
+      userRadius=getMapRadius(); //contains radius specified by slider
       let keySearch="chemical reycling";
       request={
         location: center,
@@ -112,6 +120,7 @@ function initMap() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
+      userRadius=getMapRadius(); //contains radius specified by slider
       let keySearch="garbage disposal";
       request={
         location: center,
@@ -154,26 +163,43 @@ function initMap() {
 
   //callback for nearbySearch
   function callback(results, status) {
-    for (var i = 0; i < markers.length; i++) { //loop through to delete each marker first from google maps
-          markers[i].setMap(null);
-      }
-      markers=[]; //delete the locations that were previously saved on the map
+    console.log("Markers length: "+markers.length);
+    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
+        markers[i].setMap(null);
+    }
+      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
-            console.log("number of results"+results.length);
+            console.log("number of results: "+results.length);
+              //pushing markers to array
               for (var i = 0; i < results.length; i++) {
-                  markers.push(createMarker(results[i]));
-                  console.log(markers.length);
+                  console.log(results[i].geometry.location.lat());
+                  //testing marker's distance from user's location. If location is out of bounds, locations are not pushed to marker array.
+                  let markerLat=results[i].geometry.location.lat(); //marker's latitude
+                  let markerLng=results[i].geometry.location.lng(); //marker's longitude
+                  console.log("User radiusss: "+userRadius)
+                  if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
+                    markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
+                    console.log(markers.length);
+                  }
               }
+              //creating boundaries for map, to center around all markers.
+              let bounds= new google.maps.LatLngBounds();
+              for(let i=0;i<markers.length;i++){
+                bounds.extend(markers[i].getPosition()); //extending bounds to each marker object's coordinates
+                //getPosition() is needed to get coords from the marker object
+              }
+              map.fitBounds(bounds);
           }
     document.getElementById('hamMenuBackground').style.display = 'none';
   }
-
-
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
-
-          let bounds  = new google.maps.LatLngBounds();
+          let markerLat=place.geometry.location.lat();
+          let markerLng=place.geometry.location.lng();
+          let distance=calcSearchRad(markerLat,markerLng,latitude,longitude,"M");
+          let roundedDist=distance.toFixed(1); //round distance to 1 decimal place
           var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
@@ -183,7 +209,7 @@ function initMap() {
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.formatted_address + '<br>'+'<p>Rating</p>'+place.rating+'</div>');
+                place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
               infowindow.open(map, this);
           });
           return marker;
@@ -194,6 +220,8 @@ function initMap() {
                   marker.setAnimation(google.maps.Animation.BOUNCE);
                 }
               }
+
+
   }﻿
 
 
@@ -254,28 +282,55 @@ function geocodeLatLng(geocoder, map, infowindow) {
   }
   function getMapRadius (){ //returns value from radius slider
     let slider=document.getElementById("radius");
+    return slider.value;
+    /*
     return slider.value/0.00062137;
+    */
     //ADD CONVERSION FROM MILES TO METERS
   }
 
-const database = firebase.database();
-var ref = database.ref("eventInfo");
-var name = document.getElementById("name");
-var desc = document.getElementById("desc");
-var address = document.getElementById("address");
-var date = document.getElementById("date");
-var startTime = document.getElementById("startTime");
-var endTime = document.getElementById("endTime");
-var submitBtn = document.getElementById("submitEvent");
-submitBtn.mousePressed(createEvent);
-function createEvent(){
-    var data={
-      eventName:name.value,
-      description:desc.value,
-      eventAddress:address.value,
-      eventDate:date.value,
-      startingTime:startTime.value,
-      endingTime:endTime.value
-    }
-    database.ref.push(data);
-}
+  function calcSearchRad(lat1, lon1, lat2, lon2, unit){
+    /*
+    let lat1=33.997516
+    let lon1=-117.946597
+    let lat2=33.994182
+    let lon2=-117.930880
+    console.log(distance(lat1,lon1,lat2,lon2,"M"))
+    */
+    	let radlat1 = Math.PI * lat1/180
+    	let radlat2 = Math.PI * lat2/180
+      let theta = lon1-lon2
+    	let radtheta = Math.PI * theta/180
+    	let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    	if (dist > 1) {
+    		dist = 1;
+    	}
+    	dist = Math.acos(dist)
+    	dist = dist * 180/Math.PI
+    	dist = dist * 60 * 1.1515
+    	if (unit=="K") { dist = dist * 1.609344 }
+    	if (unit=="N") { dist = dist * 0.8684 }
+    	return dist
+
+  }
+
+  const database = firebase.database();
+  var ref = database.ref("eventInfo");
+  var name = document.getElementById("name");
+  var desc = document.getElementById("desc");
+  var address = document.getElementById("address");
+  var date = document.getElementById("date");
+  var startTime = document.getElementById("startTime");
+  var endTime = document.getElementById("endTime");
+  var submitBtn = document.getElementById("submitEvent");
+  submitBtn.addEventListener('click',function createEvents(){
+      var data={
+        eventName:name.value,
+        description:desc.value,
+        eventAddress:address.value,
+        eventDate:date.value,
+        startingTime:startTime.value,
+        endingTime:endTime.value
+      }
+      database.ref("eventInfo").push(data);
+  });
