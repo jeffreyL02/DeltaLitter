@@ -46,30 +46,32 @@
           <span id="xMod">x</span>
         </div>
         <h1 id="createEventHeader">Create An Event</h1>
-        <form>
+        <form id='eventForm'>
           <h4 class="subcategories" id="nameSub">Event Name</h4>
-          <input type="text" placeholder="John Smith's Recycling Party" class="credentials" id="name"/>
+          <input type="input" placeholder="John Smith's Recycling Party" class="credentials" id="name"/>
           <h4 class="subcategories" placeholder="Description of your event here" id="descSub">Description</h4>
-          <input type="text" class="credentials" id="desc"/>
+          <input type="input" class="credentials" id="desc"/>
           <h4 class="subcategories" id="addressSub">Address</h4>
-          <input type="text" class="credentials" placeholder="#### Streetname, City, State Zipcode" id="address"/>
+          <input type="input" class="credentials" placeholder="#### Streetname, City, State Zipcode" id="address"/>
           <h4 class="subcategories" id="dateSub">Date</h4>
           <input type="date" class="credentials" id="date"/>
           <div id="startCat">
             <h4 class="subcategories" id="startTimeSub">Starting Time</h4>
-            <input type="text" class="credentials" placeholder="12:00 PM" id="startTime"/>
+            <input type="input" class="credentials" placeholder="12:00 PM" id="startTime"/>
           </div>
           <div id="endCat">
             <h4 class="subcategories" id="endTimeSub">Ending Time</h4>
             <input type="text" class="credentials" placeholder="12:00 PM" id="endTime"/>
           </div>
-          <button type="submit" id="submitEvent">Create</button>
+          <button type="button" id="submitEvent">Create</button>
         </form>
       </div>
     </div>
   </body>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx--4SouKP9c-vY0j-3MTJ7IhpOQgK1ew&libraries=places&callback=initMapp" async defer></script>
   <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+  <script src="/__/firebase/4.1.3/firebase.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBx--4SouKP9c-vY0j-3MTJ7IhpOQgK1ew&libraries=places&callback=initMapp" async></script>
   <!--
   <script src="/__/firebase/4.1.3/firebase.js"></script>
   <script src="/__/firebase/init.js"></script>
