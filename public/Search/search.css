@@ -1,0 +1,12 @@
+#workspace{
+  text-align: center;
+}
+#searchBar{
+  margin-top: 6vh;
+  height:7vh;
+  width:60vw;
+}
+#searchImg{
+  height: inherit;
+  width: inherit;
+}
