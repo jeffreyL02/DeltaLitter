@@ -318,7 +318,12 @@ function geocodeLatLng(geocoder, map, infowindow) {
     	return dist
 
   }
-
+  // listen for the window resize event & trigger Google Maps to update too
+  window.onresize = function() {
+    var currCenter = map.getCenter();
+    google.maps.event.trigger(map, 'resize');
+    map.setCenter(currCenter);
+  };
 /*
 const database = firebase.database();
 var ref = database.ref("eventInfo");
