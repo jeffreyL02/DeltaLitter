@@ -347,3 +347,20 @@ function createEvent(){
     database.ref.push(data);
 }
 */
+const FIREBASE_DATABASE = firebase.database();
+const name = document.getElementById("name").value;
+const events={
+  desc: document.getElementById("desc").value,
+  address: document.getElementById("address").value,
+  date: document.getElementById("date").value,
+  startTime: document.getElementById("startTime").value,
+  endTime: document.getElementById("endTime").value
+}
+document.getElementById("submitEvent").addEventListener('click', function(){
+  FIREBASE_DATABASE.ref('events/' + name).set(events).then(
+    function(){
+      console.log('faggot');
+    }).catch(function(error){
+      console.log(error);
+    });
+});
