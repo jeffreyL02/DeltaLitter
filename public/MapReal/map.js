@@ -179,7 +179,7 @@ function initMap() {
                   let markerLat=results[i].geometry.location.lat(); //marker's latitude
                   let markerLng=results[i].geometry.location.lng(); //marker's longitude
                   console.log("User radiusss: "+userRadius)
-                  if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){
+                  if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
                     markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                     console.log(markers.length);
                   }
@@ -196,6 +196,10 @@ function initMap() {
   }
   //creates markers and info window for each location passed in by callback
   function createMarker(place) {
+          let markerLat=place.geometry.location.lat();
+          let markerLng=place.geometry.location.lng();
+          let distance=calcSearchRad(markerLat,markerLng,latitude,longitude,"M");
+          let roundedDist=distance.toFixed(1); //round distance to 1 decimal place
           var marker = new google.maps.Marker({
               map: map,
               position: place.geometry.location,
@@ -205,7 +209,7 @@ function initMap() {
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.formatted_address + '<br>'+'<p>Rating</p>'+place.rating+'</div>');
+                place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
               infowindow.open(map, this);
           });
           return marker;
