@@ -230,7 +230,7 @@ function initMapp() {
   }﻿
 
 
-    function currentPosition(){
+  function currentPosition(){
       console.log("current position comes first");
       var currentPosition;
       //get current location if permission given
@@ -249,7 +249,7 @@ function initMapp() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   }
-  }
+}
 function geocodeLatLng(geocoder, map, infowindow) {
     console.log('geocode comes second.');
     let latData=markers[markers.length-1].coordinate.lat;
@@ -274,6 +274,7 @@ function geocodeLatLng(geocoder, map, infowindow) {
       }
     });
   }
+  
   function centerNull (){ //function to set default coordinates for the map if gelocation permission was denied
     console.log('center was null')
     center={
