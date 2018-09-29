@@ -220,6 +220,11 @@ function initMapp() {
                   marker.setAnimation(google.maps.Animation.BOUNCE);
                 }
               }
+          function screwBounce(){
+            if(marker.getAnimation() == google.maps.Animation.BOUNCE){
+              marker.setAnimation(null);
+            }
+          }
 
 
   }﻿
