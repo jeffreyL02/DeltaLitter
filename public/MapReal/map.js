@@ -178,11 +178,17 @@ function initMap() {
                   let markerLng=results[i].geometry.location.lng(); //marker's longitude
                   console.log("User radiusss: "+userRadius)
                   if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){
-                    markers.push(createMarker(results[i]));
+                    markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                     console.log(markers.length);
                   }
-
               }
+              //creating boundaries for map, to center around all markers.
+              let bounds= new google.maps.LatLngBounds();
+              for(let i=0;i<markers.length;i++){
+                bounds.extend(markers[i].getPosition()); //extending bounds to each marker object's coordinates
+                //getPosition() is needed to get coords from the marker object
+              }
+              map.fitBounds(bounds);
           }
     document.getElementById('hamMenuBackground').style.display = 'none';
   }
