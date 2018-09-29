@@ -17,7 +17,7 @@ let latitude; //user's current latitude
 let longitude; //user's current longitude
 let userRadius;
 
-function initMap() {
+function initMapp() {
     //by default, ask permission for current location to center map
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 8,
