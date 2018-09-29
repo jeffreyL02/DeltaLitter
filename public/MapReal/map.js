@@ -167,11 +167,11 @@ function initMap() {
     for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
         markers[i].setMap(null);
     }
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results. 
+      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
 
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
-            console.log("number of results"+results.length);
+            console.log("number of results: "+results.length);
               //pushing markers to array
               for (var i = 0; i < results.length; i++) {
                   console.log(results[i].geometry.location.lat());
