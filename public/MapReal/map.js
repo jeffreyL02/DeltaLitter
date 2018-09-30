@@ -141,6 +141,7 @@ function initMapp() {
     for(let i=0;i<markers.length;i++){
       addMarker(markers[i]);
     }
+
     function addMarker(properties){ //passing in properties object
       let marker=new google.maps.Marker({
         position:properties.coordinate, //coordinates passed in
@@ -226,8 +227,6 @@ function initMapp() {
               marker.setAnimation(null);
             }
           }
-
-
   }﻿
 
 
