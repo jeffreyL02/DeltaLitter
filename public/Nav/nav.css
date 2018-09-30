@@ -84,3 +84,52 @@ html, body {
   height: 0px;
   width: 0px;
 }
+#postPage{
+  position: absolute;
+  top: 0;
+  margin-top: 10vh;
+}
+#title{
+  font-size: 16vw;
+  text-align: center;
+  padding-top: .5vh;
+  padding-bottom: 1.2vh;
+  color:#fafafa;
+}
+#wrapper{
+  text-align: center;
+}
+#basicInfo{
+  width:85%;
+  background-color: #fafafa;
+  padding:1.8vh;
+  display:inline-block;
+  text-align: center;
+  border-radius: 25px
+}
+#picture{
+  width:55%;
+  padding-left:3%;
+}
+#basicInfo p{
+  font-size: 6vw;
+  padding-top: .5vh;
+  padding-bottom:1vh;
+}
+/* styles of the more detailed info */
+.tabs{
+  font-size:10vw;
+  color:#fafafa;
+  cursor:pointer;
+  padding-top:1.1vh;
+  padding-left:1vw;
+}
+.descriptions{
+  padding-left:3vw;
+  display:none;
+  font-size:8vw;
+  color:#fafafa;
+  padding-top:.5vh;
+  padding-bottom: 1vh;
+  padding-right: 1.1vw;
+}
