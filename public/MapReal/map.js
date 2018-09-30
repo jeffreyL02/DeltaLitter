@@ -117,12 +117,12 @@ function initMapp() {
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
-    document.getElementById('garbage').addEventListener('click', function() {
+    document.getElementById('clothing').addEventListener('click', function() {
       if(center==null){ //if permission was not given when prompted for geolocation
         centerNull();
       }
       userRadius=getMapRadius(); //contains radius specified by slider
-      let keySearch="garbage disposal";
+      let keySearch="clothing recycling";
       request={
         location: center,
         radius: '8047', //distance in meters from the center of the map
