@@ -7,6 +7,12 @@ camera.addEventListener('click', function(){
   invisBtn.click();
 });
 
+//navigation portion
+let map = document.getElementById("map");
+map.addEventListener('click', function(){
+  window.location.href = "../MapReal/map.html";
+})
+
 //Vision API
 let reader = new FileReader();
 let picture;
