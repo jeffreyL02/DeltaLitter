@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body>
+    <script>
+        function httpPostAsync(output, callback){
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function(){
+                if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+                    callback(xmlHttp.responseText);
+                }
+            }
+            xmlHttp.open("POST", output, true);
+            xmlHttp.send(output);
+        }
+        httpPostAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJwfipmz2uEmsRGYiH5R6yjk4&fields=name,rating,photo,formatted_phone_number&key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw",  function (text) { console.log(text); })
+    </script>
+</body>
+</html>
