@@ -32,18 +32,16 @@ btnSignUp.addEventListener('click', function(){
             mail: email
         };
         const promise = firebaseAuth.createUserWithEmailAndPassword(email, pw).then(function(user) {
-            firebaseDB.ref('users/' + user.uid).set(userObj).then(
+            firebaseDB.ref('users/' + username).set(userObj).then(
                 function() {
-                    console.log('User data successfully stored')
+                    console.log('User data successfully stored');
                 }).catch(function(error) {
                     console.log(error);
                 });
             });
             promise.catch(e => alert(e.message));
             promise.then(function(){
-                signup2.style.display = 'none';
-                land2.style.display = 'block';
-                location.reload(true);
+                //location.reload(true);
             })
     }
     else if(alreadyExists){
