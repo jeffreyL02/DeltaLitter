@@ -1,16 +1,43 @@
 * {
-  box-sizing: border-box;
-}
-.autocomplete {
-  position: relative;
-  display: inline-block;
+  font-family:sans-serif;
 }
 #workspace{
   text-align: center;
 }
+/*search bar*/
 #inputTrash {
   margin-top: 3vh;
-  font-size: 4vh;
-  width:100%;
+  font-size: 6vh;
+  width: 90vw;
+  height: 10vh;
   background-color: #f1f1f1;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }
+
+/*don't change.. trust me on this one*/
+.ui-helper-hidden-accessible{
+  display: none;
+}
+/*the container of the menu items that drop down when typing */
+.ui-menu{
+  background-color: #fafafa;
+  width:88vw;
+  margin:1vw;
+  margin-left: 5vw;
+}
+
+/*the items that drop down when you are typing (hopefully that makes sense)*/
+.ui-menu-item{
+  font-size: 4vh;
+  padding: 1.5vh;
+  padding-left: 0.8vw;
+}
+.ui-menu-item:active{
+  background-color:blue;
+  color:#fafafa;
+}
+/*no flame pls I just put these stylings here so it's
+easier for you to understand and edit. These classes are
+created by jQuery so I thought I'd put them in place for you.
+I spent like 10 minutes investigating our page with inspect element lmao*/
