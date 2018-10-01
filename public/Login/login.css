@@ -89,3 +89,11 @@ h3{
   color: #fafafa;
   font-weight: 500;
 }
+#backArrow{
+  margin-left: 10vw;
+  margin-top: 1.5vh;
+  width: 10vw;
+  height: 8vh;
+  display: none;
+  position: absolute;
+}
