@@ -131,6 +131,17 @@ function initMapp() {
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
+    document.getElementById('events').addEventListener('click',function(){
+      let ref=database.ref('events');
+      ref.on('value', gotData, errData);
+      function gotData(data){
+        console.log(data);
+      }
+      function errData(err){
+        console.log('Error!');
+        console.log(err);
+      }
+    })
 
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
