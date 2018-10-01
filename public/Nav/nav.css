@@ -5,65 +5,131 @@ html, body {
   color: #fafafa;
 }
 .selection{
-  height:30vh;
-  border-bottom: solid #fafafa 0.4vh;
+  display: block;
+  border: #fafafa solid 0.3vh;
+  color: white;
+  background-color: Transparent;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  width: 70%;
+  height: 19vh;
+  text-align: center;
+  position: relative;
+  left: 10%;
+  font-size: 8vh;
+  padding: 3vh;
+  margin-bottom: 6%;
 }
 .mainLogo{
   position: absolute;
 }
 #cameraImg{
-  top: 15.5vh;
-  height: 17.5vh;
-  left: 54vw;
+  top: 4vh;
+  height: 16vh;
+  left: 42.3vw;
 }
 #seaImg{
-  top: 45vh;
-  height: 21vh;
-  left: 1.5vw;
+  top: 2.7vh;
+  height: 19.5vh;
+  left: -3vw;
 }
 #mapImg{
-  height: 21vh;
-  top: 75vh;
-  left: 50vw;
+  height: 18vh;
+  top: 4vh;
+  left: 40vw;
 }
 .header{
   position: absolute;
   font-family: "Century Gothic";
-  font-size: 6vh;
-  width: 50%;
+  font-size: 5vh;
   text-align: center;
   font-weight: normal;
 }
 .desc {
   position: absolute;
   font-family: "Century Gothic";
-  width: 45%;
-  font-size: 3vh;
+  width: 50%;
+  font-size: 2.72vh;
   text-align: center;
 }
 #camHead {
-  top: 12vh;
+  top: 1vh;
+  left: 3vw;
 }
 #seaHead{
-  left: 47vw;
-  top: 43vh;
+  left: 44vw;
+  top: 0vh;
 }
 #mapHead{
-  top: 73vh;
-  left: 1vw;
+  top: 0vh;
+  left: 12vw;
 }
 #camDesc{
-  top: 20vh;
-  left: 3vw;
+  top: 7vh;
+  left: 1vw;
 }
 #seaDesc{
-  left: 49vw;
-  top: 51vh;
+  left: 39vw;
+  top: 6.5vh;
+  font-size: 3vh;
 }
 #mapDesc{
-  top: 81vh;
-  left: 3vw;
+  top: 6.7vh;
+  left: 1vw;
+  font-size: 3.16vh;
 }
 #invisBtn{
   visibility: hidden;
+  height: 0px;
+  width: 0px;
+}
+#postPage{
+  position: absolute;
+  top: 0;
+  margin-top: 10vh;
+}
+#title{
+  font-size: 16vw;
+  text-align: center;
+  padding-top: .5vh;
+  padding-bottom: 1.2vh;
+  color:#fafafa;
+}
+#wrapper{
+  text-align: center;
+}
+#basicInfo{
+  width:85%;
+  background-color: #fafafa;
+  padding:1.8vh;
+  display:inline-block;
+  text-align: center;
+  border-radius: 25px
+}
+#picture{
+  width:55%;
+  padding-left:3%;
+}
+#basicInfo p{
+  font-size: 6vw;
+  padding-top: .5vh;
+  padding-bottom:1vh;
+}
+/* styles of the more detailed info */
+.tabs{
+  font-size:10vw;
+  color:#fafafa;
+  cursor:pointer;
+  padding-top:1.1vh;
+  padding-left:1vw;
+}
+.descriptions{
+  padding-left:3vw;
+  display:none;
+  font-size:8vw;
+  color:#fafafa;
+  padding-top:.5vh;
+  padding-bottom: 1vh;
+  padding-right: 1.1vw;
 }

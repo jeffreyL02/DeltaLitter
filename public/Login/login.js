@@ -43,6 +43,7 @@ btnSignUp.addEventListener('click', function(){
             promise.then(function(){
                 signup2.style.display = 'none';
                 land2.style.display = 'block';
+                location.reload(true);
             })
     }
     else if(alreadyExists){
