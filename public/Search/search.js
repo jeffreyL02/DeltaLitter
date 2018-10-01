@@ -9,6 +9,7 @@ var trash = [
   "Chemicals",
   "Chemistry"
 ];
+
 function autocomplete(inp, arr) {
   var currentFocus;
   inp.addEventListener("input", function(e) {
