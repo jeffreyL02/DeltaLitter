@@ -15,7 +15,11 @@ camera.addEventListener('click', function(){
 });
 
 //navigation portion
+let search = document.getElementById("search");
 let map = document.getElementById("map");
+search.addEventListener('click', function(){
+  window.location.href = "../Search/search.html";
+})
 map.addEventListener('click', function(){
   window.location.href = "../MapReal/map.html";
 });
