@@ -341,7 +341,7 @@ document.getElementById("submitEvent").addEventListener('click', function(){
   }
   FIREBASE_DATABASE.ref('events/' + name).set(events).then(
     function(){
-      console.log('faggot');
+      console.log('');
     }).catch(function(error){
       console.log(error);
     });
