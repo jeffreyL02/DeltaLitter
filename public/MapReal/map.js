@@ -17,6 +17,12 @@ let keySearch;
 let latitude; //user's current latitude
 let longitude; //user's current longitude
 let userRadius;
+let allEvents = []; //store all events from database 
+
+//home button
+document.getElementById("homeBtn").addEventListener('click', function(){
+  window.location.href = "../Nav/nav.html"
+})
 
 function initMapp() {
     //by default, ask permission for current location to center map
@@ -131,6 +137,37 @@ function initMapp() {
       let service = new google.maps.places.PlacesService(map); //places service in places API
       service.textSearch(request, callback);
     });
+    document.getElementById('events').addEventListener('click',function(){
+      let ref = FIREBASE_DATABASE.ref('events');
+      ref.on('value', gotData, errData)
+      function gotData(data){
+        let events=data.val();
+        let keys=Object.keys(events);
+
+        for(let i=0;i<keys.length; i++){
+          let k=keys[i];
+          let currentAddress=events[k].address;
+          let geocoder=new google.maps.Geocoder();
+          geocoder.geocode({ address: '16455 Wedgeworth Dr, Hacienda Heights, CA 91745'}, function(results,status){
+            console.log(results);
+            console.log(status);
+          })
+          let currEvent={
+            address:events[k].address,
+            date:events[k].date,
+            desc:events[k].desc,
+            endTime:events[k].endTime,
+            startTime:events[k].startTime
+          }
+          allEvents.push(currEvent);
+        }
+      }
+      function errData(err){
+        console.log('Error!');
+        console.log(err);
+      }
+      
+    })
 
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;

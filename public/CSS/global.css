@@ -19,7 +19,10 @@ html{
 #nav{
   background-color: #fafafa;
   height: 10vh;
-  font-family: "Century Gothic";
+  font-family: "Helvetica";
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
 }
 #logo{
   color:#58c074;

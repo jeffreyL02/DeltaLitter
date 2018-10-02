@@ -1,3 +1,10 @@
+/*
+if(document.getElementById('picture').offsetHeight < document.getElementById('picture').offsetWidth){
+  document.getElementById('picture').setAttribute('style','transform:rotate(90deg)');
+}
+keith put this in ur code when you pull the image into the html
+*/
+
 //Enables invisible camera button
 window.scrollTo(0,1);
 let camera = document.getElementById('camera');
@@ -8,11 +15,52 @@ camera.addEventListener('click', function(){
 });
 
 //navigation portion
+let search = document.getElementById("search");
 let map = document.getElementById("map");
+search.addEventListener('click', function(){
+  window.location.href = "../Search/search.html";
+})
 map.addEventListener('click', function(){
   window.location.href = "../MapReal/map.html";
-})
+});
 
+let reuseTab = document.getElementById("reuseTab");
+let infoTab = document.getElementById("infoTab");
+let recycleTab = document.getElementById("recycleTab");
+let reuseText = document.getElementById("reusabilityText");
+let infoText = document.getElementById("infoText");
+let recycleText = document.getElementById("recycleText");
+reuseText.style.display="none";
+infoText.style.display="none";
+recycleText.style.display="none";
+//reuseTab.addEventListener('click', changeVis(reuseText));
+reuseTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("reusabilityText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
+  }
+});
+infoTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("infoText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
+  }
+});
+recycleTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("recycleText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
+  }
+});
 //Vision API
 let reader = new FileReader();
 let picture;
