@@ -19,6 +19,11 @@ let longitude; //user's current longitude
 let userRadius;
 let allEvents = []; //store all events from database 
 
+//home button
+document.getElementById("homeBtn").addEventListener('click', function(){
+  window.location.href = "../Nav/nav.html"
+})
+
 function initMapp() {
     //by default, ask permission for current location to center map
     map = new google.maps.Map(document.getElementById('map'), {
