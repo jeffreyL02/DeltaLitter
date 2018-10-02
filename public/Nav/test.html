@@ -1,21 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>abc</title>
 </head>
 <body>
-    <script>
-        function httpPostAsync(output, callback){
-            let xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function(){
-                if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
-                    callback(xmlHttp.responseText);
-                }
-            }
-            xmlHttp.open("POST", output, true);
-            xmlHttp.send(output);
+  <div class="container">
+    <h2 id="text-center">Enter Location: </h2>
+    <form id="location-form">
+      <input type="text" id="location-input" class="form-control form-control-lg">
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    <div class="card-block" id="formatted-address"></div>
+    <div class="card-block" id="address-components"></div>
+    <div class="card-block" id="geometry"></div>
+  </div>
+  <script>
+    // Get location form
+    var locationForm = document.getElementById('location-form');
+    locationForm.addEventListener('submit', geocode);
+
+    function geocode(e){
+      e.preventDefault();
+      var location = document.getElementById('location-input').value;
+
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+          address:location,
+          key:'AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw'
         }
-        httpPostAsync("https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJwfipmz2uEmsRGYiH5R6yjk4&fields=name,rating,photo,formatted_phone_number&key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw",  function (text) { console.log(text); })
-    </script>
+      })
+      .then(function(response){
+        // Log full response
+        console.log(response);
+
+        // Formatted Address
+        var formattedAddress = response.data.results[0].formatted_address;
+        var formattedAddressOutput = `
+          <ul class="list-group">
+            <li class="list-group-item">${formattedAddress}</li>
+          </ul>
+        `;
+        console.log(formattedAddressOutput);
+        // Address Components
+        var addressComponents = response.data.results[0].address_components;
+        var addressComponentsOutput = '<ul class="list-group">';
+        for(var i = 0;i < addressComponents.length;i++){
+          addressComponentsOutput += `
+            <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
+          `;
+        }
+        console.log(addressComponentsOutput);
+        // Geometry
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        console.log(lat);
+        console.log(lng);
+
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+    }
+  </script>
 </body>
 </html>
