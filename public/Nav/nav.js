@@ -23,44 +23,6 @@ search.addEventListener('click', function(){
 map.addEventListener('click', function(){
   window.location.href = "../MapReal/map.html";
 });
-
-let reuseTab = document.getElementById("reuseTab");
-let infoTab = document.getElementById("infoTab");
-let recycleTab = document.getElementById("recycleTab");
-let reuseText = document.getElementById("reusabilityText");
-let infoText = document.getElementById("infoText");
-let recycleText = document.getElementById("recycleText");
-reuseText.style.display="none";
-infoText.style.display="none";
-recycleText.style.display="none";
-//reuseTab.addEventListener('click', changeVis(reuseText));
-reuseTab.addEventListener('click',function changeVis(){
-  let text = document.getElementById("reusabilityText");
-  if(text.style.display=="none") {
-    text.style.display = "block";
-  }
-  else{
-    text.style.display = "none";
-  }
-});
-infoTab.addEventListener('click',function changeVis(){
-  let text = document.getElementById("infoText");
-  if(text.style.display=="none") {
-    text.style.display = "block";
-  }
-  else{
-    text.style.display = "none";
-  }
-});
-recycleTab.addEventListener('click',function changeVis(){
-  let text = document.getElementById("recycleText");
-  if(text.style.display=="none") {
-    text.style.display = "block";
-  }
-  else{
-    text.style.display = "none";
-  }
-});
 //Vision API
 let reader = new FileReader();
 let picture;
