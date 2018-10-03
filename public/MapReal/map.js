@@ -17,7 +17,7 @@ let keySearch;
 let latitude; //user's current latitude
 let longitude; //user's current longitude
 let userRadius;
-let allEvents = []; //store all events from database 
+let allEvents = []; //store all events from database
 
 //home button
 document.getElementById("homeBtn").addEventListener('click', function(){
@@ -166,7 +166,7 @@ function initMapp() {
         console.log('Error!');
         console.log(err);
       }
-      
+
     })
 
     //geocode variable to reverse geocode
@@ -247,8 +247,7 @@ function initMapp() {
 
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
+              infowindow.setContent('<div><strong style="font-size: 3vh;"><div style="margin-bottom: 2vh;">' + place.name + '</div></strong><br>' + place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
               infowindow.open(map, this);
           });
           return marker;
