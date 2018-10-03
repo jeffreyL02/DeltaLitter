@@ -138,6 +138,11 @@ function initMapp() {
       service.textSearch(request, callback);
     });
     document.getElementById('events').addEventListener('click',function(){
+      for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
+        markers[i].setMap(null);
+      }
+      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+      userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
       ref.on('value', gotData, errData)
       function gotData(data){
@@ -148,10 +153,56 @@ function initMapp() {
           let k=keys[i];
           let currentAddress=events[k].address;
           let geocoder=new google.maps.Geocoder();
-          geocoder.geocode({ address: '16455 Wedgeworth Dr, Hacienda Heights, CA 91745'}, function(results,status){
-            console.log(results);
-            console.log(status);
+          // console.log(events[k].address)
+          
+          geocoder.geocode({ 'address': currentAddress}, function(results,status){
+            if (status == 'OK') {
+              let eventLat=results[0].geometry.location.lat();
+              let eventLng=results[0].geometry.location.lng();
+              console.log(eventLat);
+              console.log(eventLng);
+              if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
+                // markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
+                // console.log(markers.length);
+                console.log("Markers length: "+markers.length);
+                
+              let markerLocation={
+                lat:eventLat,
+                lng:eventLng
+              }
+                
+              var marker = new google.maps.Marker({
+                  map: map,
+                  position: markerLocation,
+                  animation: google.maps.Animation.DROP
+              });
+              markers.push(marker)
+              marker.addListener('click', toggleBounce);
+              google.maps.event.addListener(marker, 'click', function() {
+                /*  
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                    place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
+                  infowindow.open(map, this);
+                  */
+              });
+              function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                  marker.setAnimation(null);
+                } else {
+                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+              }
+                console.log("event is within user's specified radius");
+              }
+              else{
+                console.log("event is not within user's specified radius");
+              }
+            }
+            else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
           })
+          /*
           let currEvent={
             address:events[k].address,
             date:events[k].date,
@@ -160,13 +211,24 @@ function initMapp() {
             startTime:events[k].startTime
           }
           allEvents.push(currEvent);
+          */
+         
+         document.getElementById('hamMenuBackground').style.display = 'none';
+
+
         }
+        
       }
       function errData(err){
         console.log('Error!');
         console.log(err);
       }
+<<<<<<< HEAD
 
+=======
+      
+      
+>>>>>>> 603fce20c1a3101b11a4bf4728bc2b8c70b97436
     })
 
     //geocode variable to reverse geocode
@@ -207,7 +269,6 @@ function initMapp() {
         markers[i].setMap(null);
     }
       markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
-
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results: "+results.length);
