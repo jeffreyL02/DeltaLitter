@@ -154,7 +154,7 @@ function initMapp() {
           let currentAddress=events[k].address;
           let geocoder=new google.maps.Geocoder();
           // console.log(events[k].address)
-          
+
           geocoder.geocode({ 'address': currentAddress}, function(results,status){
             if (status == 'OK') {
               let eventLat=results[0].geometry.location.lat();
@@ -165,12 +165,12 @@ function initMapp() {
                 // markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                 // console.log(markers.length);
                 console.log("Markers length: "+markers.length);
-                
+
               let markerLocation={
                 lat:eventLat,
                 lng:eventLng
               }
-                
+
               var marker = new google.maps.Marker({
                   map: map,
                   position: markerLocation,
@@ -179,7 +179,7 @@ function initMapp() {
               markers.push(marker)
               marker.addListener('click', toggleBounce);
               google.maps.event.addListener(marker, 'click', function() {
-                /*  
+                /*
                 infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
                     place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
                   infowindow.open(map, this);
@@ -212,23 +212,18 @@ function initMapp() {
           }
           allEvents.push(currEvent);
           */
-         
+
          document.getElementById('hamMenuBackground').style.display = 'none';
 
 
         }
-        
+
       }
       function errData(err){
         console.log('Error!');
         console.log(err);
       }
-<<<<<<< HEAD
 
-=======
-      
-      
->>>>>>> 603fce20c1a3101b11a4bf4728bc2b8c70b97436
     })
 
     //geocode variable to reverse geocode
