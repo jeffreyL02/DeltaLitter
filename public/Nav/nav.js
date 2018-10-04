@@ -15,6 +15,12 @@ camera.addEventListener('click', function(){
 });
 
 //navigation portion
+let homeBtn = document.getElementById("homeBtn");
+homeBtn.addEventListener('click', function(){
+  document.getElementById("postPage").style.display = "none";
+  document.getElementById("navPage").style.display = "block";
+  homeBtn.style.display = "none";
+}) 
 let search = document.getElementById("search");
 let map = document.getElementById("map");
 search.addEventListener('click', function(){
@@ -35,6 +41,7 @@ let imgProfile = {
   dumpLocation:"",
   reUseFactor:""
 }
+console.log(imgProfile);
 let counter = 0;
 let largestScore = 0;
 
@@ -57,11 +64,25 @@ let stringified;
 let VisionInfo;
 let VisionDesc = [];
 let VisionScore = [];
+let postPic = document.getElementById("picture");
+let context;
+let currentLength;
 
   reader.addEventListener('load', function(){
+    imgProfile = {
+      type: "",
+      recyclability: "",
+      dumpLocation: "",
+      reUseFactor: ""
+    }
     img.requests[0].image.content = btoa(reader.result);  //encodes the picture, puts in object img
     console.log(img);
     stringified = JSON.stringify(img);  //turns img into a string
+    currentLength = VisionDesc.length;
+    for (let i = 0; i <= currentLength; i++) {
+      VisionDesc.pop();
+      VisionScore.pop();
+    }
     httpPostSync("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw", stringified, function (text) {VisionInfo = JSON.parse(text); })
     console.log(VisionInfo);
     for(let i = 0; i < VisionInfo.responses[0].labelAnnotations.length; i++){
@@ -79,12 +100,15 @@ let VisionScore = [];
       }
     }
     console.log(imgProfile);
+    postPic.src = window.URL.createObjectURL(picture);
+    document.getElementById("postPage").style.display = "block";
+    document.getElementById("navPage").style.display = "none";
+    homeBtn.style.display = "block";
   }, false);
 
     invisBtn.addEventListener('change', function(){
       invisBtn = document.getElementById("invisBtn");
       picture = invisBtn.files[0];  //reads image file
-      console.log(picture);
       reader.readAsBinaryString(picture); //activates filerader to read image as binary string
     })
 
