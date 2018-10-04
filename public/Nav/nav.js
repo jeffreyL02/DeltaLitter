@@ -36,6 +36,7 @@ let picture;
 //Info needed for image recognition
 let keyWords = ["plastic", "glass", "electronic", "bottle"];
 let imgProfile = {
+  name:"",
   type:"",
   recyclability:"",
   dumpLocation:"",
@@ -85,6 +86,7 @@ let currentLength;
     }
     httpPostSync("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw", stringified, function (text) {VisionInfo = JSON.parse(text); })
     console.log(VisionInfo);
+    //pushes all elements of json info into custom arrays
     for(let i = 0; i < VisionInfo.responses[0].labelAnnotations.length; i++){
       VisionDesc.push(VisionInfo.responses[0].labelAnnotations[i].description);
       VisionScore.push(VisionInfo.responses[0].labelAnnotations[i].score);
@@ -100,10 +102,7 @@ let currentLength;
       }
     }
     console.log(imgProfile);
-    postPic.src = window.URL.createObjectURL(picture);
-    document.getElementById("postPage").style.display = "block";
-    document.getElementById("navPage").style.display = "none";
-    homeBtn.style.display = "block";
+    createPostPage();
   }, false);
 
     invisBtn.addEventListener('change', function(){
@@ -122,4 +121,19 @@ function httpPostSync(theUrl, body, callback) {
   }
   xmlHttp.open("POST", theUrl, false); // false for synchronous
   xmlHttp.send(body);
+}
+
+
+//elements to fill in for post page
+let genInfo = document.getElementById("generalInfo");
+let recycleInfo = document.getElementById("recyclableInfo");
+let reuseInfo = document.getElementById("reuseInfo");
+let title = document.getElementById("title");
+
+function createPostPage(){
+  postPic.src = window.URL.createObjectURL(picture);
+  title.innerHTML = imgProfile.name;
+  document.getElementById("postPage").style.display = "block";
+  document.getElementById("navPage").style.display = "none";
+  homeBtn.style.display = "block";
 }
