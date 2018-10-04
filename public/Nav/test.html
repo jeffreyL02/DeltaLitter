@@ -38,7 +38,6 @@
       .then(function(response){
         // Log full response
         console.log(response);
-
         // Formatted Address
         var formattedAddress = response.data.results[0].formatted_address;
         var formattedAddressOutput = `
@@ -62,6 +61,8 @@
         console.log(lat);
         console.log(lng);
 
+        var name = response.data.results[0].opening_hours;
+        console.log(name);
       })
       .catch(function(error){
         console.log(error);
