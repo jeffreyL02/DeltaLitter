@@ -176,7 +176,7 @@ function initMapp() {
                   position: markerLocation,
                   animation: google.maps.Animation.DROP
               });
-              markers.push(marker)
+              markers.push(marker);
               marker.addListener('click', toggleBounce);
               google.maps.event.addListener(marker, 'click', function() {
                 /*  
