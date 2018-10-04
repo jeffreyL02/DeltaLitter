@@ -137,3 +137,9 @@ function createPostPage(){
   document.getElementById("navPage").style.display = "none";
   homeBtn.style.display = "block";
 }
+
+// function filterData(){
+//   for(let i = 0; i < VisionDesc.length; i++){
+
+//   }
+// }
