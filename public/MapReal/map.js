@@ -196,6 +196,7 @@ function initMapp() {
                   marker.setAnimation(null);
                 } else {
                   marker.setAnimation(google.maps.Animation.BOUNCE);
+                  setTimeout(function(){ marker.setAnimation(null); }, 1500);
                 }
               }
 
@@ -312,21 +313,18 @@ function initMapp() {
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent('<div><strong style="font-size: 3vh;"><div style="margin-bottom: 2vh;">' + place.name + '</div></strong><br>' + place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
               infowindow.open(map, this);
+              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px. 
           });
           return marker;
           function toggleBounce() {
-                if (marker.getAnimation() !== null) {
-                  marker.setAnimation(null);
-                } else {
-                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-              }
-          function screwBounce(){
-            if(marker.getAnimation() == google.maps.Animation.BOUNCE){
+            if (marker.getAnimation() !== null) {
               marker.setAnimation(null);
+            } else {
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+              setTimeout(function(){ marker.setAnimation(null); }, 1500);
             }
           }
-  }﻿
+    }﻿
 
 
   function currentPosition(){
