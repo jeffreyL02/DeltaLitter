@@ -165,7 +165,8 @@ function initMapp() {
                 // markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                 // console.log(markers.length);
                 console.log("Markers length: "+markers.length);
-
+                let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
+                let roundedEventDist=eventDist.toFixed(1); //rounded event distance
               let markerLocation={
                 lat:eventLat,
                 lng:eventLng
@@ -176,14 +177,19 @@ function initMapp() {
                   position: markerLocation,
                   animation: google.maps.Animation.DROP
               });
-              markers.push(marker)
+              markers.push(marker);
               marker.addListener('click', toggleBounce);
               google.maps.event.addListener(marker, 'click', function() {
-                /*
-                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                    place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+" miles from your current location");
+                
+                //STYLE HERE BIG BRAIN JEFFREY
+          let currDesc=events[k].desc; //event description
+          let eventAddress=events[k].address; //address
+          let eventDate=events[k].date; //date 
+          let endTime=events[k].endTime; //end Time
+          let startTime=events[k].startTime; //start time
+          
+          infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
                   infowindow.open(map, this);
-                  */
               });
               function toggleBounce() {
                 if (marker.getAnimation() !== null) {
@@ -192,6 +198,7 @@ function initMapp() {
                   marker.setAnimation(google.maps.Animation.BOUNCE);
                 }
               }
+
                 console.log("event is within user's specified radius");
               }
               else{
