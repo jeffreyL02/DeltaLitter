@@ -91,6 +91,7 @@ html, body {
   top: 0;
   margin-top: 10vh;
   display: none;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
 }
 #title{
   font-size: 13vw;
