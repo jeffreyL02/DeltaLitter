@@ -41,7 +41,7 @@ btnSignUp.addEventListener('click', function(){
             });
             promise.catch(e => alert(e.message));
             promise.then(function(){
-                //location.reload(true);
+                location.reload(true);
             })
     }
     else if(alreadyExists){
