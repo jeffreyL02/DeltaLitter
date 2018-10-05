@@ -34,7 +34,12 @@ let reader = new FileReader();
 let picture;
 
 //Info needed for image recognition
-let keyWords = ["plastic", "glass", "electronic", "bottle"];
+let keyWords = ["plastic", "glass", "electronic", "bottle", "aluminum"];
+let primaryTrash = ["water bottle", "battery", "soda can"];
+let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
+let batteryGenInfo = "Batteries work through electric currents to power certain items";
+let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain the beautiful sweet liquid of the Garden of Eden";
+let GenInfoList = [waterBottleGenInfo, batteryGenInfo, sodaCanGenInfo];
 let imgProfile = {
   name:"",
   type:"",
@@ -72,7 +77,9 @@ let currentLength;
   reader.addEventListener('load', function(){
     imgProfile = {
       type: "",
-      recyclability: "",
+      name: "",
+      genInfo: "There is currently no info on this item.",
+      recyclability: "Unable to be recycled.",
       dumpLocation: "",
       reUseFactor: ""
     }
@@ -91,16 +98,7 @@ let currentLength;
       VisionDesc.push(VisionInfo.responses[0].labelAnnotations[i].description);
       VisionScore.push(VisionInfo.responses[0].labelAnnotations[i].score);
     }
-    for(let i = 0; i < keyWords.length;i++){
-      counter = 0;
-      while(counter < VisionDesc.length){
-        if(VisionDesc[counter] == keyWords[i] && VisionScore[counter] > largestScore){
-          imgProfile.type = keyWords[i];
-          imgProfile.recyclability = true;
-        }
-        counter++;
-      }
-    }
+    determineRecyclability();
     console.log(imgProfile);
     createPostPage();
   }, false);
@@ -131,15 +129,37 @@ let reuseInfo = document.getElementById("reuseInfo");
 let title = document.getElementById("title");
 
 function createPostPage(){
+  imgProfile.name = VisionDesc[0];
   postPic.src = window.URL.createObjectURL(picture);
   title.innerHTML = imgProfile.name;
+  genInfo.innerHTML = imgProfile.genInfo;
+  recycleInfo.innerHTML = imgProfile.recyclability;
   document.getElementById("postPage").style.display = "block";
   document.getElementById("navPage").style.display = "none";
   homeBtn.style.display = "block";
 }
 
-// function filterData(){
+// function filterSingleWords(){
 //   for(let i = 0; i < VisionDesc.length; i++){
 
 //   }
 // }
+
+// function determineGenfInfo(){
+//   for(let i = 0; i < VisionDesc; i++){
+//     for(let j = 0; j < )
+//   }
+// }
+
+function determineRecyclability(){
+  for (let i = 0; i < keyWords.length; i++) {
+    counter = 0;
+    while (counter < VisionDesc.length) {
+      if (VisionDesc[counter] == keyWords[i] && VisionScore[counter] > largestScore) {
+        imgProfile.type = keyWords[i];
+        imgProfile.recyclability = "Able to be recycled.";
+      }
+      counter++;
+    }
+  }
+}
