@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw&libraries=places"></script>
+  <title>abc</title>
+</head>
+<body>
+  <div class="container">
+    <h2 id="text-center">Enter Location: </h2>
+    <form id="location-form">
+      <input type="text" id="location-input" class="form-control form-control-lg">
+      <br>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+    <div class="card-block" id="formatted-address"></div>
+    <div class="card-block" id="address-components"></div>
+    <div class="card-block" id="geometry"></div>
+  </div>
+  <script>
+  // Make a request for a user with a given ID
+  /*axios.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJwfipmz2uEmsRGYiH5R6yjk4&key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw')
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+
+    });*/
+  var openingHours = [];
+  var phoneNumber;
+  var name;
+  var locationForm = document.getElementById('location-form');
+  var ac = new google.maps.places.Autocomplete(document.getElementById("location-input"));
+  google.maps.event.addListener(ac,'place_changed',function(){
+    var place = ac.getPlace();
+    console.log(place);
+    openingHours = place.opening_hours.weekday_text;
+    for(var i = 0;i<openingHours.length;i++){
+      console.log(openingHours[i]);
+    }
+    phoneNumber = place.formatted_phone_number;
+    console.log(phoneNumber);
+    name = place.name;
+    console.log(name);
+  });
+  //locationForm.addEventListener('submit', geocode);
+  /*
+  function geocode(e){
+    e.preventDefault();
+    var location = document.getElementById('location-input').value;
+
+    axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters',{
+      params:{
+        address:location,
+        key:'AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw',
+      }
+    })
+    .then(function(response){
+      console.log(response);
+      var request = {
+        placeId: response.data.results[0].place_id,
+        fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
+        };
+      });
+      //service.getDetails(request, callback);
+  }*/
+  </script>
+</body>
+</html>
