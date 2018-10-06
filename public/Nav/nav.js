@@ -35,7 +35,7 @@ let picture;
 
 //Info needed for image recognition
 let keyWords = ["plastic", "glass", "electronic", "bottle", "aluminum"];
-let primaryTrash = ["water bottle", "battery", "soda can"];
+let primaryTrash = ["bottle", "battery", "can"];
 let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
 let batteryGenInfo = "Batteries work through electric currents to power certain items";
 let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain the beautiful sweet liquid of the Garden of Eden";
@@ -130,6 +130,8 @@ let title = document.getElementById("title");
 
 function createPostPage(){
   imgProfile.name = VisionDesc[0];
+  console.log(determineGenfInfo());
+  imgProfile.genInfo = GenInfoList[determineGenfInfo()];
   postPic.src = window.URL.createObjectURL(picture);
   title.innerHTML = imgProfile.name;
   genInfo.innerHTML = imgProfile.genInfo;
@@ -145,11 +147,22 @@ function createPostPage(){
 //   }
 // }
 
-// function determineGenfInfo(){
-//   for(let i = 0; i < VisionDesc; i++){
-//     for(let j = 0; j < )
-//   }
-// }
+let trashCount = 0;
+let handledDesc = "";
+function determineGenfInfo(){
+  for(let i = 0; i < VisionDesc.length; i++){
+    for(let j = 0; j < primaryTrash.length; j++){
+      while(trashCount < primaryTrash.length){
+        handledDesc =  VisionDesc[i].slice(VisionDesc[i].search(primaryTrash[trashCount]), VisionDesc[i].length);
+        if(handledDesc == primaryTrash[j]){
+          return j;
+        }
+        trashCount++;
+      }
+      trashCount = 0;
+    }
+  }
+}
 
 function determineRecyclability(){
   for (let i = 0; i < keyWords.length; i++) {
