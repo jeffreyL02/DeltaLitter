@@ -146,7 +146,7 @@ function initMapp() {
       function gotData(data){
         let events=data.val();
         let keys=Object.keys(events);
-        refreshMarkers(); //refresh map markers 
+        refreshMarkers(); //refresh map markers
         for(let i=0;i<keys.length; i++){
           let k=keys[i];
           let currentAddress=events[k].address;
@@ -157,34 +157,10 @@ function initMapp() {
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
-                
+
                 let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
                 console.log(eventDist);
                 let roundedEventDist=eventDist.toFixed(1); //rounded event distance
-<<<<<<< HEAD
-              let markerLocation={
-                lat:eventLat,
-                lng:eventLng
-              }
-
-              var marker = new google.maps.Marker({
-                  map: map,
-                  position: markerLocation,
-                  animation: google.maps.Animation.DROP
-              });
-              markers.push(marker);
-              marker.addListener('click', toggleBounce);
-              google.maps.event.addListener(marker, 'click', function() {
-
-                //STYLE HERE BIG BRAIN JEFFREY
-          let currDesc=events[k].desc; //event description
-          let eventAddress=events[k].address; //address
-          let eventDate=events[k].date; //date
-          let endTime=events[k].endTime; //end Time
-          let startTime=events[k].startTime; //start time
-
-          infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
-=======
                 let markerLocation={
                   lat:eventLat,
                   lng:eventLng
@@ -203,12 +179,11 @@ function initMapp() {
                         //STYLE HERE BIG BRAIN JEFFREY
                   let currDesc=events[k].desc; //event description
                   let eventAddress=events[k].address; //address
-                  let eventDate=events[k].date; //date 
+                  let eventDate=events[k].date; //date
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
-                
+
                   infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
->>>>>>> 1ecf2849f05e5bc35ed991ef8110d4ebd1a15e09
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});
                 });
