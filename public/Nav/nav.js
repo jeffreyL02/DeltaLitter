@@ -6,6 +6,9 @@ keith put this in ur code when you pull the image into the html
 */
 
 //Enables invisible camera button
+const firebaseDB = firebase.database();
+let ref = firebaseDB.ref("pictures");
+
 window.scrollTo(0,1);
 let camera = document.getElementById('camera');
 let invisBtn = document.getElementById('invisBtn');
@@ -71,6 +74,7 @@ let VisionScore = [];
 let postPic = document.getElementById("picture");
 let context;
 let currentLength;
+let id = "";
 
 //after the reader loads, passes encoded pict. into http request
   reader.addEventListener('load', function(){
@@ -82,7 +86,14 @@ let currentLength;
       dumpLocation: "",
       reUseFactor: ""
     }
+    console.log(id);
     img.requests[0].image.content = btoa(reader.result);  //encodes the picture, puts in object img
+    firebaseDB.ref("pictures/" + id).set(img.requests[0].image.content).then(
+      function(){
+        console.log("data stored");
+      }).catch(function(error){
+        console.log(error);
+      });
     console.log(img);
     stringified = JSON.stringify(img);  //turns img into a string
     currentLength = VisionDesc.length;
@@ -104,6 +115,8 @@ let currentLength;
     invisBtn.addEventListener('change', function(){
       invisBtn = document.getElementById("invisBtn");
       picture = invisBtn.files[0];  //reads image file
+      id = "";
+      id = createRandomID();
       reader.readAsBinaryString(picture); //activates filerader to read image as binary string
     })
 
@@ -194,4 +207,12 @@ function filterCommon(){
         commonCount++;
     }
   }
+}
+
+function createRandomID(){
+  let rand = "";
+  for(let i = 0; i < 10; i++){
+    rand += Math.round((Math.random() * (20 + 1)) + 1).toString();
+  }
+  return rand;
 }
