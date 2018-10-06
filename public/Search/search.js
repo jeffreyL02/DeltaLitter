@@ -1,4 +1,6 @@
+//autocomplete function
 $( function(){
+  //items array
   var trash = [
     "Plastic Bottle",
     "Cell Phone",
@@ -18,15 +20,26 @@ $( function(){
 
 var inputTrash = document.getElementById("inputTrash");
 var searchBtn = document.getElementById("searchButton");
+
 var title = document.getElementById("title");
 var picture = document.getElementById("picture");
+
 var generalInfo = document.getElementById("generalInfo");
 var recycleInfo = document.getElementById("recyclableInfo");
 var reuseInfo = document.getElementById("reuseInfo");
+
+var infoTab = document.getElementById("infoTab");
+var recycleTab = document.getElementById("recycleTab");
+var reuseTab = document.getElementById("reuseTab");
+
 var postPage = document.getElementById("postPage");
 var searchPage = document.getElementById("searchPage");
 
+//listen for search
 searchBtn.addEventListener("click",function(){
+  /*change what is displayed based on search
+    so basically everything is the same page
+    but text content is different lmao*/
   if(inputTrash.value.toLowerCase()=="plastic bottle"){
     searchPage.style.display = 'none';
     postPage.style.display = 'block';
@@ -54,9 +67,9 @@ searchBtn.addEventListener("click",function(){
     postPage.style.display = 'block';
     title.textContent = "Clothing";
     picture.src = "https://images-na.ssl-images-amazon.com/images/I/61tm1h%2BYAsL._SL1500_.jpg";
-    generalInfo.textContent = "Die";
-    recycleInfo.textContent = "Die2";
-    reuseInfo.textContent = "Die3";
+    generalInfo.textContent = "lorem ipsum";
+    recycleInfo.textContent = "lorem ipsume";
+    reuseInfo.textContent = "lorem ipsum";
   }*/
 });
 
