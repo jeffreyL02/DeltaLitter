@@ -3,16 +3,28 @@
 }
 #searchPage{
   text-align: center;
+  display: flex;
 }
 /*search bar*/
 #inputTrash {
-  display:inline-block;
   margin-top: 3vh;
   font-size: 6vh;
   width: 80vw;
   height: 10vh;
-  background-color: .f1f1f1;
+  background-color: #f1f1f1;
   border-radius: 10px;
+}
+#searchImg{
+  margin-top:3vh;
+  padding:2vh;
+  padding-left:1.4vh;
+  width:50%;
+  background-color: #f1f1f1;
+  margin-right:5vw;
+}
+ul{
+  list-style: none;
+  list-style-type: none;
 }
 
 /*don't change.. trust me on this one*/
@@ -21,8 +33,8 @@
 }
 /*the container of the menu items that drop down when typing */
 .ui-menu{
-  background-color: .fafafa;
-  width:88vw;
+  background-color: #fafafa;
+  width:78vw;
   margin:1vw;
   margin-left: 5vw;
 }
@@ -35,11 +47,7 @@
 }
 .ui-menu-item:active{
   background-color:blue;
-  color:.fafafa;
-}
-#searchImg{
-  height:10vh;
-  display:inline-block;
+  color:#fafafa;
 }
 
 .header{
@@ -49,47 +57,47 @@
   text-align: center;
   font-weight: normal;
 }
-.postPage{
+#postPage{
   position: absolute;
   top: 0;
   margin-top: 10vh;
   display: none;
-  background-image: linear-gradient(to bottom right, .379c53, .75e092);
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
 }
-.title{
+#title{
   font-size: 13vw;
   text-align: center;
   padding-top: .5vh;
   padding-bottom: 1.2vh;
-  color:.fafafa;
+  color:#fafafa;
   font-family: "helvetica";
   margin: 1.5%;
 }
-.wrapper{
+#wrapper{
   text-align: center;
 }
-.basicInfo{
+#basicInfo{
   width:85%;
-  background-color: .fafafa;
+  background-color: #fafafa;
   padding:1.8vh;
   display:inline-block;
   text-align: center;
   border-radius: 25px
 }
-.picture{
-  width:55%;
+#picture{
+  width:65%;
   padding-left:3%;
 }
-.basicInfo p{
+#basicInfo p{
   font-size: 6vw;
   padding-top: .5vh;
   padding-bottom:1vh;
-  color:.58c074;
+  color:#58c074;
 }
 /* styles of the more detailed info */
 .tabs{
   font-size:10vw;
-  color:.fafafa;
+  color:#fafafa;
   text-align: center;
   padding-top:1.1vh;
   padding-left:1vw;
@@ -97,14 +105,14 @@
 .descriptions{
   padding-left:3vw;
   font-size:8vw;
-  color:.fafafa;
+  color:#fafafa;
   padding-top:.5vh;
   padding-bottom: 1vh;
   padding-right: 1.1vw;
 }
-.navPage{
+#navPage{
   display: block;
 }
-.homeBtn{
+#homeBtn{
   display: none;
 }

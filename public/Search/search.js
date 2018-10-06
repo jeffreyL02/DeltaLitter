@@ -18,13 +18,74 @@ $( function(){
 
 var inputTrash = document.getElementById("inputTrash");
 var searchBtn = document.getElementById("searchButton");
-var bottlePage = document.getElementById("postPage");
+var title = document.getElementById("title");
+var picture = document.getElementById("picture");
+var generalInfo = document.getElementById("generalInfo");
+var recycleInfo = document.getElementById("recyclableInfo");
+var reuseInfo = document.getElementById("reuseInfo");
+var postPage = document.getElementById("postPage");
 var searchPage = document.getElementById("searchPage");
 
-searchButton.addEventListener("click",function(){
-  if(inputTrash.value ==  "Plastic Bottle"){
+searchBtn.addEventListener("click",function(){
+  if(inputTrash.value.toLowerCase()=="plastic bottle"){
     searchPage.style.display = 'none';
-    bottlePage.style.display = 'block';
+    postPage.style.display = 'block';
+  }
+  if(inputTrash.value.toLowerCase()=="aluminum can"){
+    searchPage.style.display = 'none';
+    postPage.style.display = 'block';
+    title.textContent = "Aluminum Can";
+    picture.src = "https://jlbrooks.co.uk/media/catalog/product/cache/1/image/800x800/9df78eab33525d08d6e5fb8d27136e95/d/-/d-coke-can_4.jpg";
+    generalInfo.textContent = "An aluminum is a container for packaging made primarily of aluminum. It is commonly used for foods and beverages such as milk and soup but also for products such as oil, chemicals, and other liquids. Global production is 180 billion annually and constitutes the biggest single use of aluminum globally.";
+    recycleInfo.textContent = "Aluminum cans are recyclable.";
+    reuseInfo.textContent = "String the tabs of aluminum cans together to create a fashionable, reused belt!";
+  }
+  if(inputTrash.value.toLowerCase()=="battery"){
+    searchPage.style.display = 'none';
+    postPage.style.display = 'block';
+    title.textContent = "Battery";
+    picture.src = "https://images-na.ssl-images-amazon.com/images/I/61tm1h%2BYAsL._SL1500_.jpg";
+    generalInfo.textContent = "An electric battery is a device consisting of one or more electrochemical cells with external connections provided to power electrical devices such as flashlights, smartphones, and electric cars.";
+    recycleInfo.textContent = "Batteries are recyclable. Batteries contain a number of heavy metals and toxic chemicals and disposing of them by the same process as regular trash has raised concerns over soil contamination and water pollution.";
+    reuseInfo.textContent = "Batteries cannot be reused unless they are rechargable.";
+  }
+  /*if(inputTrash.value=="Clothing"){
+    searchPage.style.display = 'none';
+    postPage.style.display = 'block';
+    title.textContent = "Clothing";
+    picture.src = "https://images-na.ssl-images-amazon.com/images/I/61tm1h%2BYAsL._SL1500_.jpg";
+    generalInfo.textContent = "Die";
+    recycleInfo.textContent = "Die2";
+    reuseInfo.textContent = "Die3";
+  }*/
+});
+
+//collapse on click
+reuseTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("reusabilityText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
+  }
+});
+infoTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("infoText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
+  }
+});
+recycleTab.addEventListener('click',function changeVis(){
+  let text = document.getElementById("recycleText");
+  if(text.style.display=="none") {
+    text.style.display = "block";
+  }
+  else{
+    text.style.display = "none";
   }
 });
 
