@@ -34,11 +34,11 @@ let reader = new FileReader();
 let picture;
 
 //Info needed for image recognition
-let keyWords = ["plastic", "glass", "electronic", "bottle", "aluminum"];
+let keyWords = ["plastic", "glass", "electronic", "plastic", "aluminum"];
 let primaryTrash = ["bottle", "battery", "can"];
 let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
-let batteryGenInfo = "Batteries work through electric currents to power certain items";
-let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain the beautiful sweet liquid of the Garden of Eden";
+let batteryGenInfo = "Batteries work through electric currents to power certain items.";
+let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain soda for humans to consume.";
 let GenInfoList = [waterBottleGenInfo, batteryGenInfo, sodaCanGenInfo];
 let imgProfile = {
   name:"",
@@ -76,8 +76,8 @@ let currentLength;
 
   reader.addEventListener('load', function(){
     imgProfile = {
-      type: "",
-      name: "",
+      type: "Unknown Material",
+      name: "Unable to identify",
       genInfo: "There is currently no info on this item.",
       recyclability: "Unable to be recycled.",
       dumpLocation: "",
@@ -141,12 +141,6 @@ function createPostPage(){
   homeBtn.style.display = "block";
 }
 
-// function filterSingleWords(){
-//   for(let i = 0; i < VisionDesc.length; i++){
-
-//   }
-// }
-
 let trashCount = 0;
 let handledDesc = "";
 function determineGenfInfo(){
@@ -164,15 +158,20 @@ function determineGenfInfo(){
   }
 }
 
+let reCounter = 0;
 function determineRecyclability(){
   for (let i = 0; i < keyWords.length; i++) {
     counter = 0;
     while (counter < VisionDesc.length) {
-      if (VisionDesc[counter] == keyWords[i] && VisionScore[counter] > largestScore) {
-        imgProfile.type = keyWords[i];
-        imgProfile.recyclability = "Able to be recycled.";
-      }
+        while(reCounter < keyWords.length){
+          if (VisionDesc[counter].slice(VisionDesc[counter].search(keyWords[reCounter]), keyWords[reCounter].length) == keyWords[i]) {
+            imgProfile.type = keyWords[i];
+            imgProfile.recyclability = "Able to be recycled.";
+          }
+          reCounter++;
+        }
       counter++;
+      reCounter = 0;
     }
   }
 }
