@@ -11,7 +11,6 @@ $( function(){
     "Lego",
     "Paper",
     "Plastic Wrap",
-    "The quick brown fox jumped over the lazy dog" //so you get something no matter what letter you type lmao
   ];
   $( "#inputTrash" ).autocomplete({ //jquery autocomplete function lmao??
     source: trash

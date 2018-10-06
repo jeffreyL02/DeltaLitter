@@ -7,20 +7,27 @@
 }
 /*search bar*/
 #inputTrash {
-  margin-top: 3vh;
-  font-size: 6vh;
+  margin-top: 5vh;
+  padding-left: 3vw;
+  margin-left: 7vw;
+  font-size: 4vh;
   width: 80vw;
-  height: 10vh;
+  height: 8vh;
   background-color: #f1f1f1;
-  border-radius: 10px;
+  border-radius: 2vh;
+  color: #58c074;
 }
-#searchImg{
-  margin-top:3vh;
-  padding:2vh;
-  padding-left:1.4vh;
-  width:50%;
-  background-color: #f1f1f1;
-  margin-right:5vw;
+#searchButton{
+  margin-top:5vh;
+  padding-left: 2vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  height: 6.5vh;
+  margin-left: 2vw;
+  margin-left: -17vw;
+  border-left: solid black 0.1vw;
+  box-shadow: none;
+  z-index: 100;
 }
 ul{
   list-style: none;
