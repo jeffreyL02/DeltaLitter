@@ -138,11 +138,7 @@ function initMapp() {
       service.textSearch(request, callback);
     });
     document.getElementById('events').addEventListener('click',function(){
-      for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-      }
-      console.log('clearing marker array in events')
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+      refreshMarkers(); //refresh map markers
       userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
       ref.on('value', gotData, errData)
@@ -150,6 +146,7 @@ function initMapp() {
       function gotData(data){
         let events=data.val();
         let keys=Object.keys(events);
+        refreshMarkers(); //refresh map markers 
         for(let i=0;i<keys.length; i++){
           let k=keys[i];
           let currentAddress=events[k].address;
@@ -223,6 +220,13 @@ function initMapp() {
     }
     map.fitBounds(bounds);
   }
+  function refreshMarkers(){
+    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
+      markers[i].setMap(null);
+    }
+    console.log('clearing marker array in events')
+    markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+  }
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
@@ -257,10 +261,7 @@ function initMapp() {
   //callback for nearbySearch
   function callback(results, status) {
     console.log("Markers length: "+markers.length);
-    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-    }
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+    refreshMarkers(); //refresh all map markers
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results: "+results.length);
