@@ -160,8 +160,9 @@ function initMapp() {
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
-                console.log("Markers length: "+markers.length);
+                
                 let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
+                console.log(eventDist);
                 let roundedEventDist=eventDist.toFixed(1); //rounded event distance
                 let markerLocation={
                   lat:eventLat,
@@ -185,7 +186,7 @@ function initMapp() {
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
                 
-                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
+                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});
                 });
