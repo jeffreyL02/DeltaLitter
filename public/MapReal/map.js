@@ -180,14 +180,14 @@ function initMapp() {
               markers.push(marker);
               marker.addListener('click', toggleBounce);
               google.maps.event.addListener(marker, 'click', function() {
-                
+
                 //STYLE HERE BIG BRAIN JEFFREY
           let currDesc=events[k].desc; //event description
           let eventAddress=events[k].address; //address
-          let eventDate=events[k].date; //date 
+          let eventDate=events[k].date; //date
           let endTime=events[k].endTime; //end Time
           let startTime=events[k].startTime; //start time
-          
+
           infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
                   infowindow.open(map, this);
               });
@@ -311,10 +311,10 @@ function initMapp() {
 
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div style="margin-bottom: 2vh; font-size: 3vh; text-align:center; font-weight: bold;">'
-              + place.name + '</div><img src="http://pngimg.com/uploads/umbrella/umbrella_PNG497.png" style="width: 75%; margin-left: 12.5%;"><br><p><strong>Address:</strong></p>' + place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+' miles from your current location</div>');
+              infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
+              + place.name + '</div><img src="http://pngimg.com/uploads/umbrella/umbrella_PNG497.png" style="width: 75%; margin-left: 12.5%;"><br><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>');
               infowindow.open(map, this);
-              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px. 
+              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px.
           });
           return marker;
           function toggleBounce() {
