@@ -141,6 +141,7 @@ function initMapp() {
       for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
         markers[i].setMap(null);
       }
+      console.log('clearing marker array in events')
       markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
       userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
@@ -172,6 +173,8 @@ function initMapp() {
                     animation: google.maps.Animation.DROP
                 });
                 markers.push(marker);
+                limitBounds(); //calling autoscroll function
+                console.log("limiting bounds at marker: "+ markers.length)
                 console.log('pushing events marker')
                 marker.addListener('click', toggleBounce);
                 google.maps.event.addListener(marker, 'click', function() {
@@ -191,7 +194,7 @@ function initMapp() {
                     marker.setAnimation(null);
                   } else {
                     marker.setAnimation(google.maps.Animation.BOUNCE);
-                    setTimeout(function(){ marker.setAnimation(null); }, 1500);
+                    setTimeout(function(){ marker.setAnimation(null); }, 750);
                   }
                 }
               }
@@ -208,7 +211,17 @@ function initMapp() {
       console.log(data);
     }
   })
-
+  function limitBounds(){ //auto scroll to fit all markers on map
+    console.log("limit bounadaries")
+    console.log(markers.length);
+    //creating boundaries for map, to center around all markers.
+    let bounds= new google.maps.LatLngBounds();
+    for(let i=0;i<markers.length;i++){
+      bounds.extend(markers[i].getPosition()); //extending bounds to each marker object's coordinates
+      //getPosition() is needed to get coords from the marker object
+    }
+    map.fitBounds(bounds);
+  }
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
@@ -260,8 +273,10 @@ function initMapp() {
                   if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
                     markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                     console.log(markers.length);
+                    limitBounds();
                   }
               }
+              /*
               //creating boundaries for map, to center around all markers.
               let bounds= new google.maps.LatLngBounds();
               for(let i=0;i<markers.length;i++){
@@ -269,6 +284,7 @@ function initMapp() {
                 //getPosition() is needed to get coords from the marker object
               }
               map.fitBounds(bounds);
+              */
           }
     document.getElementById('hamMenuBackground').style.display = 'none';
   }
@@ -297,7 +313,7 @@ function initMapp() {
               marker.setAnimation(null);
             } else {
               marker.setAnimation(google.maps.Animation.BOUNCE);
-              setTimeout(function(){ marker.setAnimation(null); }, 1500);
+              setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
           }
     }﻿
