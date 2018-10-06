@@ -3,7 +3,6 @@ default basic css for all file*/
 *{
     margin:0;
     padding:0;
-    -webkit-user-select:none;
 }
 input, input:before, input:after {
     -webkit-user-select: initial;

@@ -1,18 +1,30 @@
 * {
   font-family:sans-serif;
 }
-#workspace{
+#searchPage{
   text-align: center;
+  display: flex;
 }
 /*search bar*/
 #inputTrash {
   margin-top: 3vh;
   font-size: 6vh;
-  width: 90vw;
+  width: 80vw;
   height: 10vh;
   background-color: #f1f1f1;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+#searchImg{
+  margin-top:3vh;
+  padding:2vh;
+  padding-left:1.4vh;
+  width:50%;
+  background-color: #f1f1f1;
+  margin-right:5vw;
+}
+ul{
+  list-style: none;
+  list-style-type: none;
 }
 
 /*don't change.. trust me on this one*/
@@ -22,7 +34,7 @@
 /*the container of the menu items that drop down when typing */
 .ui-menu{
   background-color: #fafafa;
-  width:88vw;
+  width:78vw;
   margin:1vw;
   margin-left: 5vw;
 }
@@ -37,7 +49,64 @@
   background-color:blue;
   color:#fafafa;
 }
-/*no flame pls I just put these stylings here so it's
-easier for you to understand and edit. These classes are
-created by jQuery so I thought I'd put them in place for you.
-I spent like 10 minutes investigating our page with inspect element lmao*/
+
+.header{
+  position: absolute;
+  font-family: "Century Gothic";
+  font-size: 5vh;
+  text-align: center;
+  font-weight: normal;
+}
+#postPage{
+  position: absolute;
+  top: 0;
+  margin-top: 10vh;
+  display: none;
+  background-image: linear-gradient(to bottom right, #379c53, #75e092);
+}
+#title{
+  font-size: 13vw;
+  text-align: center;
+  padding-top: .5vh;
+  padding-bottom: 1.2vh;
+  color:#fafafa;
+  font-family: "helvetica";
+  margin: 1.5%;
+}
+#wrapper{
+  text-align: center;
+}
+#basicInfo{
+  width:85%;
+  background-color: #fafafa;
+  padding:1.8vh;
+  display:inline-block;
+  text-align: center;
+  border-radius: 25px
+}
+#picture{
+  width:65%;
+  padding-left:3%;
+}
+#basicInfo p{
+  font-size: 6vw;
+  padding-top: .5vh;
+  padding-bottom:1vh;
+  color:#58c074;
+}
+/* styles of the more detailed info */
+.tabs{
+  font-size:10vw;
+  color:#fafafa;
+  text-align: center;
+  padding-top:1.1vh;
+  padding-left:1vw;
+}
+.descriptions{
+  padding-left:3vw;
+  font-size:8vw;
+  color:#fafafa;
+  padding-top:.5vh;
+  padding-bottom: 1vh;
+  padding-right: 1.1vw;
+}
