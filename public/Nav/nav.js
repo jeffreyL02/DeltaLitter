@@ -130,7 +130,7 @@ let title = document.getElementById("title");
 function createPostPage(){
   filterCommon();
   determineRecyclability();
-  imgProfile.name = VisionDesc[0];
+  imgProfile.name = imgProfile.type;
   imgProfile.genInfo = GenInfoList[determineGenfInfo()];
   postPic.src = window.URL.createObjectURL(picture);
   title.innerHTML = imgProfile.name;
