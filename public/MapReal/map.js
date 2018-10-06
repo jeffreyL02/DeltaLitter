@@ -145,94 +145,69 @@ function initMapp() {
       userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
       ref.on('value', gotData, errData)
+
       function gotData(data){
         let events=data.val();
         let keys=Object.keys(events);
-
         for(let i=0;i<keys.length; i++){
           let k=keys[i];
           let currentAddress=events[k].address;
           let geocoder=new google.maps.Geocoder();
           // console.log(events[k].address)
-
           geocoder.geocode({ 'address': currentAddress}, function(results,status){
             if (status == 'OK') {
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
-              console.log(eventLat);
-              console.log(eventLng);
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
-                // markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
-                // console.log(markers.length);
                 console.log("Markers length: "+markers.length);
                 let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
                 let roundedEventDist=eventDist.toFixed(1); //rounded event distance
-              let markerLocation={
-                lat:eventLat,
-                lng:eventLng
-              }
-
-              var marker = new google.maps.Marker({
-                  map: map,
-                  position: markerLocation,
-                  animation: google.maps.Animation.DROP
-              });
-              markers.push(marker);
-              marker.addListener('click', toggleBounce);
-              google.maps.event.addListener(marker, 'click', function() {
+                let markerLocation={
+                  lat:eventLat,
+                  lng:eventLng
+                }
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: markerLocation,
+                    animation: google.maps.Animation.DROP
+                });
+                markers.push(marker);
+                console.log('pushing events marker')
+                marker.addListener('click', toggleBounce);
+                google.maps.event.addListener(marker, 'click', function() {
+                        //STYLE HERE BIG BRAIN JEFFREY
+                  let currDesc=events[k].desc; //event description
+                  let eventAddress=events[k].address; //address
+                  let eventDate=events[k].date; //date 
+                  let endTime=events[k].endTime; //end Time
+                  let startTime=events[k].startTime; //start time
                 
-                //STYLE HERE BIG BRAIN JEFFREY
-          let currDesc=events[k].desc; //event description
-          let eventAddress=events[k].address; //address
-          let eventDate=events[k].date; //date 
-          let endTime=events[k].endTime; //end Time
-          let startTime=events[k].startTime; //start time
-          
-          infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
+                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
                   infowindow.open(map, this);
-              });
-              function toggleBounce() {
-                if (marker.getAnimation() !== null) {
-                  marker.setAnimation(null);
-                } else {
-                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                  setTimeout(function(){ marker.setAnimation(null); }, 1500);
+                  infowindow.setOptions({maxWidth:325});
+                });
+                function toggleBounce() {
+                  if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                  } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function(){ marker.setAnimation(null); }, 1500);
+                  }
                 }
               }
-
-                console.log("event is within user's specified radius");
-              }
-              else{
-                console.log("event is not within user's specified radius");
-              }
             }
-            else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          })
-          /*
-          let currEvent={
-            address:events[k].address,
-            date:events[k].date,
-            desc:events[k].desc,
-            endTime:events[k].endTime,
-            startTime:events[k].startTime
+          else{
+            console.log("event is not within user's specified radius");
           }
-          allEvents.push(currEvent);
-          */
-
+        })
          document.getElementById('hamMenuBackground').style.display = 'none';
-
-
-        }
-
       }
-      function errData(err){
-        console.log('Error!');
-        console.log(err);
-      }
-
-    })
+    }
+    function errData(data){
+      console.log('error!')
+      console.log(data);
+    }
+  })
 
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
