@@ -138,102 +138,95 @@ function initMapp() {
       service.textSearch(request, callback);
     });
     document.getElementById('events').addEventListener('click',function(){
-      for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-      }
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+      refreshMarkers(); //refresh map markers
       userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
       ref.on('value', gotData, errData)
+
       function gotData(data){
         let events=data.val();
         let keys=Object.keys(events);
-
+        refreshMarkers(); //refresh map markers 
         for(let i=0;i<keys.length; i++){
           let k=keys[i];
           let currentAddress=events[k].address;
           let geocoder=new google.maps.Geocoder();
           // console.log(events[k].address)
-
           geocoder.geocode({ 'address': currentAddress}, function(results,status){
             if (status == 'OK') {
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
-              console.log(eventLat);
-              console.log(eventLng);
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
-                // markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
-                // console.log(markers.length);
-                console.log("Markers length: "+markers.length);
-                let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
-                let roundedEventDist=eventDist.toFixed(1); //rounded event distance
-              let markerLocation={
-                lat:eventLat,
-                lng:eventLng
-              }
-
-              var marker = new google.maps.Marker({
-                  map: map,
-                  position: markerLocation,
-                  animation: google.maps.Animation.DROP
-              });
-              markers.push(marker);
-              marker.addListener('click', toggleBounce);
-              google.maps.event.addListener(marker, 'click', function() {
                 
-                //STYLE HERE BIG BRAIN JEFFREY
-          let currDesc=events[k].desc; //event description
-          let eventAddress=events[k].address; //address
-          let eventDate=events[k].date; //date 
-          let endTime=events[k].endTime; //end Time
-          let startTime=events[k].startTime; //start time
-          
-          infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
+                let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
+                console.log(eventDist);
+                let roundedEventDist=eventDist.toFixed(1); //rounded event distance
+                let markerLocation={
+                  lat:eventLat,
+                  lng:eventLng
+                }
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: markerLocation,
+                    animation: google.maps.Animation.DROP
+                });
+                markers.push(marker);
+                limitBounds(); //calling autoscroll function
+                console.log("limiting bounds at marker: "+ markers.length)
+                console.log('pushing events marker')
+                marker.addListener('click', toggleBounce);
+                google.maps.event.addListener(marker, 'click', function() {
+                        //STYLE HERE BIG BRAIN JEFFREY
+                  let currDesc=events[k].desc; //event description
+                  let eventAddress=events[k].address; //address
+                  let eventDate=events[k].date; //date 
+                  let endTime=events[k].endTime; //end Time
+                  let startTime=events[k].startTime; //start time
+                
+                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
                   infowindow.open(map, this);
-              });
-              function toggleBounce() {
-                if (marker.getAnimation() !== null) {
-                  marker.setAnimation(null);
-                } else {
-                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                  setTimeout(function(){ marker.setAnimation(null); }, 1500);
+                  infowindow.setOptions({maxWidth:325});
+                });
+                function toggleBounce() {
+                  if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                  } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                    setTimeout(function(){ marker.setAnimation(null); }, 750);
+                  }
                 }
               }
-
-                console.log("event is within user's specified radius");
-              }
-              else{
-                console.log("event is not within user's specified radius");
-              }
             }
-            else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          })
-          /*
-          let currEvent={
-            address:events[k].address,
-            date:events[k].date,
-            desc:events[k].desc,
-            endTime:events[k].endTime,
-            startTime:events[k].startTime
+          else{
+            console.log("event is not within user's specified radius");
           }
-          allEvents.push(currEvent);
-          */
-
+        })
          document.getElementById('hamMenuBackground').style.display = 'none';
-
-
-        }
-
       }
-      function errData(err){
-        console.log('Error!');
-        console.log(err);
-      }
-
-    })
-
+    }
+    function errData(data){
+      console.log('error!')
+      console.log(data);
+    }
+  })
+  function limitBounds(){ //auto scroll to fit all markers on map
+    console.log("limit bounadaries")
+    console.log(markers.length);
+    //creating boundaries for map, to center around all markers.
+    let bounds= new google.maps.LatLngBounds();
+    for(let i=0;i<markers.length;i++){
+      bounds.extend(markers[i].getPosition()); //extending bounds to each marker object's coordinates
+      //getPosition() is needed to get coords from the marker object
+    }
+    map.fitBounds(bounds);
+  }
+  function refreshMarkers(){
+    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
+      markers[i].setMap(null);
+    }
+    console.log('clearing marker array in events')
+    markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+  }
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
@@ -268,10 +261,7 @@ function initMapp() {
   //callback for nearbySearch
   function callback(results, status) {
     console.log("Markers length: "+markers.length);
-    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-    }
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+    refreshMarkers(); //refresh all map markers
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results: "+results.length);
@@ -285,8 +275,10 @@ function initMapp() {
                   if(calcSearchRad(markerLat,markerLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
                     markers.push(createMarker(results[i])); //pushing marker objects into an array. This allows for marker deletion at refresh.
                     console.log(markers.length);
+                    limitBounds();
                   }
               }
+              /*
               //creating boundaries for map, to center around all markers.
               let bounds= new google.maps.LatLngBounds();
               for(let i=0;i<markers.length;i++){
@@ -294,6 +286,7 @@ function initMapp() {
                 //getPosition() is needed to get coords from the marker object
               }
               map.fitBounds(bounds);
+              */
           }
     document.getElementById('hamMenuBackground').style.display = 'none';
   }
@@ -322,7 +315,7 @@ function initMapp() {
               marker.setAnimation(null);
             } else {
               marker.setAnimation(google.maps.Animation.BOUNCE);
-              setTimeout(function(){ marker.setAnimation(null); }, 1500);
+              setTimeout(function(){ marker.setAnimation(null); }, 750);
             }
           }
     }﻿
