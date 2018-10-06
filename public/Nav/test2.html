@@ -22,58 +22,25 @@
     <div class="card-block" id="geometry"></div>
   </div>
   <script>
-  // Make a request for a user with a given ID
-  /*axios.get('https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJwfipmz2uEmsRGYiH5R6yjk4&key=AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw')
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-
-    });*/
-  var openingHours = [];
-  var phoneNumber;
-  var name;
-  var locationForm = document.getElementById('location-form');
-  var ac = new google.maps.places.Autocomplete(document.getElementById("location-input"));
-  google.maps.event.addListener(ac,'place_changed',function(){
-    var place = ac.getPlace();
-    console.log(place);
-    openingHours = place.opening_hours.weekday_text;
-    for(var i = 0;i<openingHours.length;i++){
-      console.log(openingHours[i]);
-    }
-    phoneNumber = place.formatted_phone_number;
-    console.log(phoneNumber);
-    name = place.name;
-    console.log(name);
-  });
-  //locationForm.addEventListener('submit', geocode);
-  /*
-  function geocode(e){
-    e.preventDefault();
-    var location = document.getElementById('location-input').value;
-
-    axios.get('https://maps.googleapis.com/maps/api/place/findplacefromtext/output?parameters',{
-      params:{
-        address:location,
-        key:'AIzaSyChzwkDB5dABRGzGoUKQkSAzM5DCSVBhNw',
+    var openingHours = [];
+    var phoneNumber;
+    var name;
+    var place;
+    var locationForm = document.getElementById('location-form');
+    //autocompletes locations
+    var ac = new google.maps.places.Autocomplete(document.getElementById("location-input"));
+    google.maps.event.addListener(ac,'place_changed',function(){
+      place = ac.getPlace();
+      console.log(place);
+      openingHours = place.opening_hours.weekday_text;
+      for(var i = 0;i<openingHours.length;i++){
+        console.log(openingHours[i]);
       }
-    })
-    .then(function(response){
-      console.log(response);
-      var request = {
-        placeId: response.data.results[0].place_id,
-        fields: ['name', 'rating', 'formatted_phone_number', 'geometry']
-        };
-      });
-      //service.getDetails(request, callback);
-  }*/
+      phoneNumber = place.formatted_phone_number;
+      console.log(phoneNumber);
+      name = place.name;
+      console.log(name);
+    });
   </script>
 </body>
 </html>

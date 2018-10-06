@@ -138,11 +138,7 @@ function initMapp() {
       service.textSearch(request, callback);
     });
     document.getElementById('events').addEventListener('click',function(){
-      for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-      }
-      console.log('clearing marker array in events')
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+      refreshMarkers(); //refresh map markers
       userRadius=getMapRadius(); //contains radius specified by slider
       let ref = FIREBASE_DATABASE.ref('events');
       ref.on('value', gotData, errData)
@@ -150,6 +146,7 @@ function initMapp() {
       function gotData(data){
         let events=data.val();
         let keys=Object.keys(events);
+        refreshMarkers(); //refresh map markers
         for(let i=0;i<keys.length; i++){
           let k=keys[i];
           let currentAddress=events[k].address;
@@ -160,8 +157,9 @@ function initMapp() {
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
-                console.log("Markers length: "+markers.length);
+
                 let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
+                console.log(eventDist);
                 let roundedEventDist=eventDist.toFixed(1); //rounded event distance
                 let markerLocation={
                   lat:eventLat,
@@ -181,11 +179,11 @@ function initMapp() {
                         //STYLE HERE BIG BRAIN JEFFREY
                   let currDesc=events[k].desc; //event description
                   let eventAddress=events[k].address; //address
-                  let eventDate=events[k].date; //date 
+                  let eventDate=events[k].date; //date
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
-                
-                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<p><strong>Event Description: </strong</p>'+currDesc);
+
+                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});
                 });
@@ -222,6 +220,13 @@ function initMapp() {
     }
     map.fitBounds(bounds);
   }
+  function refreshMarkers(){
+    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
+      markers[i].setMap(null);
+    }
+    console.log('clearing marker array in events')
+    markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+  }
     //geocode variable to reverse geocode
     let geocoder = new google.maps.Geocoder;
     infowindow = new google.maps.InfoWindow;
@@ -256,10 +261,7 @@ function initMapp() {
   //callback for nearbySearch
   function callback(results, status) {
     console.log("Markers length: "+markers.length);
-    for (var i = 1; i < markers.length; i++) { //loop through to delete each marker first from google maps
-        markers[i].setMap(null);
-    }
-      markers.splice(1,markers.length-1); //delete all markers except for the user's location marker to reload new marker results.
+    refreshMarkers(); //refresh all map markers
           console.log('size of markers after emptying array.'+markers.length);
           if(status == google.maps.places.PlacesServiceStatus.OK){
             console.log("number of results: "+results.length);
@@ -302,10 +304,10 @@ function initMapp() {
 
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div style="margin-bottom: 2vh; font-size: 3vh; text-align:center; font-weight: bold;">'
-              + place.name + '</div><img src="http://pngimg.com/uploads/umbrella/umbrella_PNG497.png" style="width: 75%; margin-left: 12.5%;"><br><p><strong>Address:</strong></p>' + place.formatted_address + '<br>'+'<p><strong>Rating</strong></p>'+place.rating + '<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedDist+' miles from your current location</div>');
+              infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
+              + place.name + '</div><img src="http://pngimg.com/uploads/umbrella/umbrella_PNG497.png" style="width: 75%; margin-left: 12.5%;"><br><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>');
               infowindow.open(map, this);
-              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px. 
+              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px.
           });
           return marker;
           function toggleBounce() {
