@@ -34,22 +34,20 @@ let reader = new FileReader();
 let picture;
 
 //Info needed for image recognition
-let keyWords = ["plastic", "glass", "electronic", "bottle", "aluminum"];
+let keyWords = ["plastic", "glass", "electronic", "plastic", "aluminum"];
 let primaryTrash = ["bottle", "battery", "can"];
 let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
-let batteryGenInfo = "Batteries work through electric currents to power certain items";
-let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain the beautiful sweet liquid of the Garden of Eden";
+let batteryGenInfo = "Batteries work through electric currents to power certain items.";
+let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain soda for humans to consume.";
 let GenInfoList = [waterBottleGenInfo, batteryGenInfo, sodaCanGenInfo];
 let imgProfile = {
-  name:"",
-  type:"",
-  recyclability:"",
+  type: "Unknown Material",
+  name: "Unable to identify",
+  genInfo: "There is currently no info on this item.",
+  recyclability: "Unable to be recycled.",
   dumpLocation:"",
   reUseFactor:""
 }
-console.log(imgProfile);
-let counter = 0;
-let largestScore = 0;
 
 //necessary json for API
 var img = {
@@ -74,10 +72,11 @@ let postPic = document.getElementById("picture");
 let context;
 let currentLength;
 
+//after the reader loads, passes encoded pict. into http request
   reader.addEventListener('load', function(){
     imgProfile = {
-      type: "",
-      name: "",
+      type: "Unknown Material",
+      name: "Unable to identify",
       genInfo: "There is currently no info on this item.",
       recyclability: "Unable to be recycled.",
       dumpLocation: "",
@@ -98,7 +97,6 @@ let currentLength;
       VisionDesc.push(VisionInfo.responses[0].labelAnnotations[i].description);
       VisionScore.push(VisionInfo.responses[0].labelAnnotations[i].score);
     }
-    determineRecyclability();
     console.log(imgProfile);
     createPostPage();
   }, false);
@@ -128,9 +126,11 @@ let recycleInfo = document.getElementById("recyclableInfo");
 let reuseInfo = document.getElementById("reuseInfo");
 let title = document.getElementById("title");
 
+//creates the post page
 function createPostPage(){
+  filterCommon();
+  determineRecyclability();
   imgProfile.name = VisionDesc[0];
-  console.log(determineGenfInfo());
   imgProfile.genInfo = GenInfoList[determineGenfInfo()];
   postPic.src = window.URL.createObjectURL(picture);
   title.innerHTML = imgProfile.name;
@@ -141,12 +141,7 @@ function createPostPage(){
   homeBtn.style.display = "block";
 }
 
-// function filterSingleWords(){
-//   for(let i = 0; i < VisionDesc.length; i++){
-
-//   }
-// }
-
+//determines what general info to display
 let trashCount = 0;
 let handledDesc = "";
 function determineGenfInfo(){
@@ -164,15 +159,39 @@ function determineGenfInfo(){
   }
 }
 
+//determines recyclability and material of object
+let counter = 0;
+let reCounter = 0;
 function determineRecyclability(){
   for (let i = 0; i < keyWords.length; i++) {
     counter = 0;
     while (counter < VisionDesc.length) {
-      if (VisionDesc[counter] == keyWords[i] && VisionScore[counter] > largestScore) {
-        imgProfile.type = keyWords[i];
-        imgProfile.recyclability = "Able to be recycled.";
-      }
+        while(reCounter < keyWords.length){
+          if (VisionDesc[counter].slice(VisionDesc[counter].search(keyWords[reCounter]), keyWords[reCounter].length) == keyWords[i]) {
+            imgProfile.type = keyWords[i];
+            imgProfile.recyclability = "Able to be recycled.";
+          }
+          reCounter++;
+        }
       counter++;
+      reCounter = 0;
+    }
+  }
+}
+
+//filter common vision results
+let commonCount = 0;
+let commonResults = ["product", "text"];
+function filterCommon(){
+  commonCount = 0;
+  for(let i = 0; i < VisionDesc.length; i++){
+    commonCount = 0;
+    while(commonCount < commonResults.length){
+        if(VisionDesc[i] == commonResults[commonCount]){
+          VisionDesc.splice(i, 1);
+          i--;
+        }
+        commonCount++;
     }
   }
 }
