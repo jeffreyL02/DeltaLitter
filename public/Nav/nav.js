@@ -18,12 +18,16 @@ camera.addEventListener('click', function(){
 });
 
 //navigation portion
+let mapLink = document.getElementById("mapNav");
 let homeBtn = document.getElementById("homeBtn");
 homeBtn.addEventListener('click', function(){
   document.getElementById("postPage").style.display = "none";
   document.getElementById("navPage").style.display = "block";
   homeBtn.style.display = "none";
 }) 
+mapLink.addEventListener('click', function(){
+  window.location.href = "../MapReal/map.html";
+})
 let search = document.getElementById("search");
 let map = document.getElementById("map");
 search.addEventListener('click', function(){
@@ -37,7 +41,7 @@ let reader = new FileReader();
 let picture;
 
 //Info needed for image recognition
-let keyWords = ["plastic", "glass", "electronic", "plastic", "aluminum"];
+let keyWords = ["glass", "electronic", "plastic", "aluminum"];
 let primaryTrash = ["bottle", "battery", "can"];
 let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
 let batteryGenInfo = "Batteries work through electric currents to power certain items.";
