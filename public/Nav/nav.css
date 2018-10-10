@@ -155,12 +155,11 @@ html, body {
   border-radius: 2.5vh;
   outline: none;
   cursor: pointer;
-  width: 70%;
-  height: 19vh;
+  width: 80%;
+  height: 15vh;
   text-align: center;
   position: relative;
   left: 10%;
-  font-size: 8vh;
-  padding: 3vh;
-  margin-bottom: 6%;
+  font-size: 5vh;
+  margin-top: 2vh;
 }
