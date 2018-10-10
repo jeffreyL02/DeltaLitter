@@ -117,3 +117,19 @@ ul{
   padding-bottom: 1vh;
   padding-right: 1.1vw;
 }
+#mapNav{
+  display: block;
+  border: #fafafa solid 0.3vh;
+  color: white;
+  background-color: Transparent;
+  border-radius: 2.5vh;
+  outline: none;
+  cursor: pointer;
+  width: 80%;
+  height: 15vh;
+  text-align: center;
+  position: relative;
+  left: 10%;
+  font-size: 5vh;
+  margin-top: 2vh;
+}
