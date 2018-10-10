@@ -41,7 +41,7 @@ ul{
 /*the container of the menu items that drop down when typing */
 .ui-menu{
   background-color: #fafafa;
-  width:78vw;
+  width:75vw;
   margin:1vw;
   margin-left: 5vw;
 }
@@ -132,4 +132,11 @@ ul{
   left: 10%;
   font-size: 5vh;
   margin-top: 2vh;
+}
+#errorPage{
+  display:none;
+}
+#errorText{
+  padding-top:1.5vh;
+  font-size:9vw;
 }
