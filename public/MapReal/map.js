@@ -305,7 +305,7 @@ function initMapp() {
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
               infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
-              + place.name + '</div><img src="#" style="width: 75%; margin-left: 12.5%;"><br><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>');
+              + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>');
               infowindow.open(map, this);
               infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px.
           });
