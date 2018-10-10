@@ -431,15 +431,14 @@ function createRandomId(){
 let randID;
 document.getElementById("submitEvent").addEventListener('click', function(){
   events={
-    name = document.getElementById('name').value,
+    name: document.getElementById('name').value,
     desc: document.getElementById("desc").value,
     address: document.getElementById("address").value,
     date: document.getElementById("date").value,
     startTime: document.getElementById("startTime").value,
     endTime: document.getElementById("endTime").value
   }
-  randID = createRandomId();
-  FIREBASE_DATABASE.ref('events/' + randId).set(events).then(
+  FIREBASE_DATABASE.ref('events/' + createRandomId()).set(events).then(
     function(){
       console.log('');
     }).catch(function(error){
