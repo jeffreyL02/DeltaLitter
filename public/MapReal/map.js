@@ -19,6 +19,7 @@ let longitude; //user's current longitude
 let userRadius;
 let allEvents = []; //store all events from database
 
+
 //home button
 document.getElementById("homeBtn").addEventListener('click', function(){
   window.location.href = "../Nav/nav.html"
@@ -154,6 +155,7 @@ function initMapp() {
           // console.log(events[k].address)
           geocoder.geocode({ 'address': currentAddress}, function(results,status){
             if (status == 'OK') {
+              console.log(results[0].place_id); //get place id 
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
@@ -294,6 +296,7 @@ function initMapp() {
   function createMarker(place) {
           let markerLat=place.geometry.location.lat();
           let markerLng=place.geometry.location.lng();
+          let placeId;
           let distance=calcSearchRad(markerLat,markerLng,latitude,longitude,"M");
           let roundedDist=distance.toFixed(1); //round distance to 1 decimal place
           var marker = new google.maps.Marker({
@@ -301,13 +304,33 @@ function initMapp() {
               position: place.geometry.location,
               animation: google.maps.Animation.DROP
           });
-
+          var latlng = {lat: markerLat, lng: markerLng}; //get the place id of the marker location
+          
           marker.addListener('click', toggleBounce);
           google.maps.event.addListener(marker, 'click', function() {
-              infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
-              + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>');
-              infowindow.open(map, this);
-              infowindow.setOptions({maxWidth:325}); //set max width of the info window to 200 px.
+            geocoder.geocode({'location': latlng}, function(results, status) {
+              if (status === 'OK') {
+                if (results[0]) { //since there's a lot of choices for address results, we chose the first one
+                  placeId=results[0].place_id;
+                  // let link = "https://www.google.com/maps/search/?api=1&query=" + markerLat + "," + markerLng;
+                  let link="https://www.google.com/maps/search/?api=1&query="+markerLat+","+markerLng+"&query_place_id="+placeId;
+                  infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
+                  + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>'+link.link(link));
+                  
+                } else {
+                  window.alert('No results found');
+                }
+              } else {
+                window.alert('Geocoder failed due to: ' + status);
+              }
+            }); 
+            infowindow.open(map, this);
+            infowindow.setOptions({maxWidth:400}); //set max width of the info window to 200 px.
+            console.log('actual position');
+            console.log(longitude);
+            console.log(latitude);
+              
+              
           });
           return marker;
           function toggleBounce() {
