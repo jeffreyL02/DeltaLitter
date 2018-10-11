@@ -444,16 +444,24 @@ function geocodeLatLng(geocoder, map, infowindow) {
 let name;
 let events={};
 const FIREBASE_DATABASE = firebase.database();
+function createRandomId(){
+  let rand = "";
+  for (let i = 0; i < 10; i++) {
+    rand += Math.round((Math.random() * (20 + 1)) + 1).toString();
+  }
+  return rand;
+}
+let randID;
 document.getElementById("submitEvent").addEventListener('click', function(){
-  name = document.getElementById('name').value;
   events={
+    name: document.getElementById('name').value,
     desc: document.getElementById("desc").value,
     address: document.getElementById("address").value,
     date: document.getElementById("date").value,
     startTime: document.getElementById("startTime").value,
     endTime: document.getElementById("endTime").value
   }
-  FIREBASE_DATABASE.ref('events/' + name).set(events).then(
+  FIREBASE_DATABASE.ref('events/' + createRandomId()).set(events).then(
     function(){
       console.log('');
     }).catch(function(error){
