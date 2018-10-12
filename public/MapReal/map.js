@@ -185,7 +185,7 @@ function initMapp() {
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
 
-                  infowindow.setContent('<div><strong>' + 'Event Near You!' + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
+                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});
                 });
