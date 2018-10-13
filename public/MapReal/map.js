@@ -304,19 +304,18 @@ function initMapp() {
               position: place.geometry.location,
               animation: google.maps.Animation.DROP
           });
-          var latlng = {lat: markerLat, lng: markerLng}; //get the place id of the marker location
+          var latlng = {lat: markerLat, lng: markerLng}; //lat and lng object to be passed into geocoder 
           
           marker.addListener('click', toggleBounce);
-          google.maps.event.addListener(marker, 'click', function() {
-            geocoder.geocode({'location': latlng}, function(results, status) {
+          google.maps.event.addListener(marker, 'click', function() { //retrieve place id with provided lat and lng object 
+            geocoder.geocode({'location': latlng}, function(results, status) { 
               if (status === 'OK') {
-                if (results[0]) { //since there's a lot of choices for address results, we chose the first one
-                  placeId=results[0].place_id;
+                if (results[0]) { //since there's a lot of choices for address results, we choose the first one
+                  placeId=results[0].place_id; 
                   // let link = "https://www.google.com/maps/search/?api=1&query=" + markerLat + "," + markerLng;
-                  let link="https://www.google.com/maps/search/?api=1&query="+markerLat+","+markerLng+"&query_place_id="+placeId;
+                  let link="https://www.google.com/maps/search/?api=1&query="+markerLat+","+markerLng+"&query_place_id="+placeId; //link that contains the location's coordinates and place id
                   infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
                   + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>'+link.link(link));
-                  
                 } else {
                   window.alert('No results found');
                 }
