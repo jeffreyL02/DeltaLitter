@@ -39,11 +39,12 @@ let picture;
 
 //Info needed for image recognition
 let materialList = ["plastic", "glass", "electronic", "plastic", "aluminum"];
-let primaryTrash = ["bottle", "battery", "can"];
+let primaryTrash = ["bottle", "battery", "can", "chemical"];
 let waterBottleGenInfo = "The plastic bottle is generally made of plastic and is used by people to drink water.";
 let batteryGenInfo = "Batteries work through electric currents to power certain items.";
 let sodaCanGenInfo = "Soda cans are generally made of aluminum and contain soda for humans to consume.";
-let GenInfoList = [waterBottleGenInfo, batteryGenInfo, sodaCanGenInfo];
+let chemicalGenInfo = "A compound or substance that has been purified or prepared, especially artificially.";
+let GenInfoList = [waterBottleGenInfo, batteryGenInfo, sodaCanGenInfo, chemicalGenInfo];
 let imgProfile = {
   type: "Unknown Material",
   name: "Unable to identify",

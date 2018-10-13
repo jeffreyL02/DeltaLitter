@@ -140,3 +140,13 @@ ul{
   padding-top:1.5vh;
   font-size:9vw;
 }
+
+#backArrow{
+  margin-left: 10vw;
+  margin-top: 1.5vh;
+  height: 5vh;
+  display: none;
+  position: absolute;
+  top: 2vh;
+  left: -4vw;
+}
