@@ -51,6 +51,7 @@ searchBtn.addEventListener("click",function search(){
     so basically everything is the same page
     but text content is different lmao*/
   var input = inputTrash.value.toLowerCase();
+  backArrow.style.display = 'block';
   if(input=="plastic bottle"){
     searchPage.style.display = 'none';
     postPage.style.display = 'block';
@@ -217,5 +218,6 @@ backArrow.addEventListener('click',function(){
   postPage.style.display="none";
   errorPage.style.display="none";
   searchPage.style.display="block";
+  backArrow.style.display='none';
 });
 
