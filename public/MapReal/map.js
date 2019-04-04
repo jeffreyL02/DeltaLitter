@@ -324,7 +324,26 @@ function initMapp() {
                   // let link = "https://www.google.com/maps/search/?api=1&query=" + markerLat + "," + markerLng;
                   let link="https://www.google.com/maps/search/?api=1&query="+markerLat+","+markerLng+"&query_place_id="+placeId; //link that contains the location's coordinates and place id
                   infowindow.setContent('<div style="margin-bottom: 2vh; color: #58c074; font-size: 4.5vh; text-align:center; font-weight: bold;">'
-                  + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>'+link.link(link));
+                  + place.name + '</div><p style="color: #58c074; font-size: 3vh;"><strong>Address:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">' + place.formatted_address + '</p>'+'<p style="color: #58c074; font-size: 3vh;"><strong>Rating:</strong></p><p style="color: #58c074; font-size:2.25vh; margin-left: 3.5vw;">'+place.rating + '</p><p> <strong style="color: #58c074;>Linear Distance: </strong></p>'+'</div><p style="margin-top:2vh; color: #58c074; font-size: 2.5vh;">'+roundedDist+' miles from your current location</p>'+link.link(link)+'<button type="button" id="saveLocation" >Save this location!</button>'); //InfoWIndow Information
+                  
+                  //SAVE LOCATION BUTTON
+                  document.getElementById('saveLocation').addEventListener('click', function() { //SAVE MAP MARKER BUTTON
+                    console.log("saveLocation Button has been pressed");
+                    firebase.auth().onAuthStateChanged(function(user) { //waits until current user is fully initialized, before trying to capture user ID 
+                      if (user) { //tests to make sure current user is not null
+                        console.log("user successful!!");
+                        userId=firebase.auth().currentUser.uid; //get the current user's id 
+                        console.log(userId);
+                          FIREBASE_DATABASE.ref('events/' + userId+'/savedLocations/').push(latlng).then( //pushes intended marker to database (latlng object )
+                            console.log('marker coordinates successfully saved!!')).catch(function(error){console.log("Marker save FAILED!");
+                          });
+                      }  
+                      else{ //if current user is not detected 
+                        console.log("user error!")
+                      }
+                    });
+                  });
+
                 } else {
                   window.alert('No results found');
                 }
@@ -460,7 +479,8 @@ function createRandomId(){
   return rand;
 }
 let randID;
-document.getElementById("submitEvent").addEventListener('click', function(){
+
+document.getElementById("submitEvent").addEventListener('click', function(){ //SUBMIT EVENT BUTTON 
   events={
     name: document.getElementById('name').value,
     desc: document.getElementById("desc").value,
@@ -474,9 +494,12 @@ document.getElementById("submitEvent").addEventListener('click', function(){
       console.log("user successful!!");
       userId=firebase.auth().currentUser.uid; //get the current user's id 
       console.log(userId);
-        FIREBASE_DATABASE.ref('events/' + userId).push(events).then( //changed from set to push, so that data is added and not overridden
+        FIREBASE_DATABASE.ref('events/' + userId+'/createdEvents/').push(events).then( //changed from set to push, so that data is added and not overridden
                                                                       //pushes each event to database under the current user's id 
-          console.log('Event pushed successfully!!')).catch(function(error){console.log("Database failed!");
+          console.log('Event pushed successfully under user ID !!')).catch(function(error){console.log("Database failed!");
+        });
+        FIREBASE_DATABASE.ref('events/' + createRandomId()).set(events).then( //pushes each event to database directly under event without user id, so that all users can see the event
+          console.log('Event pushed successfully under events!!')).catch(function(error){console.log("Database failed!");
         });
     }  
     else{ //if current user is not detected 
@@ -489,3 +512,4 @@ document.getElementById("submitEvent").addEventListener('click', function(){
   document.getElementById('eventModalBack').style.display = 'none';
   document.getElementById('hamMenuBackground').style.display = 'none';
 });
+
