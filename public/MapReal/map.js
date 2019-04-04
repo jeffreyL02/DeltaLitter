@@ -1,4 +1,6 @@
-
+function testFunction(){
+  console.log("button pressed!");
+}
 window.scrollTo(0,1);
 let radius = document.getElementById("radius");
 let value = document.getElementById("value");
@@ -167,6 +169,7 @@ function initMapp() {
               console.log(results[0].place_id); //get place id 
               let eventLat=results[0].geometry.location.lat();
               let eventLng=results[0].geometry.location.lng();
+              
               if(calcSearchRad(eventLat,eventLng,latitude,longitude,"M")<userRadius){ //latitude and longitude are the user's coords.
 
                 let eventDist=calcSearchRad(eventLat,eventLng,latitude,longitude,"M"); //event distance from user
@@ -193,8 +196,9 @@ function initMapp() {
                   let eventDate=events[k].date; //date
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
-
-                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc);
+                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc+'<button type="button" id="saveEvent">Save this event!</button>').then(
+                    document.getElementById("saveEvent").addEventListener('click', testFunction())
+                  );
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});
                 });
@@ -334,7 +338,7 @@ function initMapp() {
                         console.log("user successful!!");
                         userId=firebase.auth().currentUser.uid; //get the current user's id 
                         console.log(userId);
-                          FIREBASE_DATABASE.ref('events/' + userId+'/savedLocations/').push(latlng).then( //pushes intended marker to database (latlng object )
+                          FIREBASE_DATABASE.ref('savedLocations/' + userId).push(latlng).then( //pushes intended marker to database (latlng object )
                             console.log('marker coordinates successfully saved!!')).catch(function(error){console.log("Marker save FAILED!");
                           });
                       }  
