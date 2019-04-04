@@ -6,6 +6,13 @@ keith put this in ur code when you pull the image into the html
 */
 
 //Enables invisible camera button
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("Im cool");
+  } else {
+    console.log("error");
+  }
+});
 window.scrollTo(0, 1);
 let camera = document.getElementById('camera');
 let invisBtn = document.getElementById('invisBtn');

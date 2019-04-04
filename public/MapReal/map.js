@@ -18,6 +18,14 @@ let latitude; //user's current latitude
 let longitude; //user's current longitude
 let userRadius;
 let allEvents = []; //store all events from database
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("user successful!!");
+  } else {
+    console.log("user error!")
+  }
+});
+
 
 
 //home button
@@ -461,11 +469,21 @@ document.getElementById("submitEvent").addEventListener('click', function(){
     endTime: document.getElementById("endTime").value
   }
   FIREBASE_DATABASE.ref('events/' + createRandomId()).set(events).then(
+    // FIREBASE_DATABASE.ref('events/' + userId).set(events).then(
     function(){
-      console.log('');
-    }).catch(function(error){
+      console.log('testing firebase');
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          console.log("user successful!!");
+        } else {
+          console.log("user error!")
+        }
+      });
+    }
+    ).catch(function(error){
       console.log(error);
     });
+    
   document.getElementById('eventForm').reset();
   document.getElementById('eventModalBack').style.display = 'none';
   document.getElementById('hamMenuBackground').style.display = 'none';

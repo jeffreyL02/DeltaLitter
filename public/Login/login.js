@@ -34,7 +34,7 @@ btnSignUp.addEventListener('click', function(){
         const promise = firebaseAuth.createUserWithEmailAndPassword(email, pw).then(function(user) {
             firebaseDB.ref('users/' + username).set(userObj).then(
                 function() {
-                    console.log('User data successfully stored');
+                    console.log('User data succe ssfully stored');
                 }).catch(function(error) {
                     console.log(error);
                 });
