@@ -18,6 +18,7 @@ let latitude; //user's current latitude
 let longitude; //user's current longitude
 let userRadius;
 let allEvents = []; //store all events from database
+let userId;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log("user successful!!");
@@ -468,21 +469,21 @@ document.getElementById("submitEvent").addEventListener('click', function(){
     startTime: document.getElementById("startTime").value,
     endTime: document.getElementById("endTime").value
   }
-  FIREBASE_DATABASE.ref('events/' + createRandomId()).set(events).then(
-    // FIREBASE_DATABASE.ref('events/' + userId).set(events).then(
-    function(){
-      console.log('testing firebase');
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          console.log("user successful!!");
-        } else {
-          console.log("user error!")
-        }
-      });
+  firebase.auth().onAuthStateChanged(function(user) { //waits until current user is fully initialized, before trying to capture user ID 
+    if (user) { //tests to make sure current user is not null
+      console.log("user successful!!");
+      userId=firebase.auth().currentUser.uid; //get the current user's id 
+      console.log(userId);
+        FIREBASE_DATABASE.ref('events/' + userId).push(events).then( //changed from set to push, so that data is added and not overridden
+                                                                      //pushes each event to database under the current user's id 
+          console.log('Event pushed successfully!!')).catch(function(error){console.log("Database failed!");
+        });
+    }  
+    else{ //if current user is not detected 
+      console.log("user error!")
     }
-    ).catch(function(error){
-      console.log(error);
-    });
+  });
+  
     
   document.getElementById('eventForm').reset();
   document.getElementById('eventModalBack').style.display = 'none';

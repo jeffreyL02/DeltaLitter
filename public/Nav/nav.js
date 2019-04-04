@@ -13,6 +13,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log("error");
   }
 });
+
 window.scrollTo(0, 1);
 let camera = document.getElementById('camera');
 let invisBtn = document.getElementById('invisBtn');
