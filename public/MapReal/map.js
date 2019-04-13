@@ -21,14 +21,39 @@ let longitude; //user's current longitude
 let userRadius;
 let allEvents = []; //store all events from database
 let userId;
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log("user successful!!");
-  } else {
-    console.log("user error!")
-  }
-});
+//event description variables
+let currDesc;
+let eventAddress;
+let eventDate;
+let endTime;
+let startTime;
+let names;
 
+
+function userSaveEvent(){ //saving the event that the user clicked on to firebase under savedEvents 
+  console.log("event button was pressed!")
+  firebase.auth().onAuthStateChanged(function(user) { //waits until current user is fully initialized, before trying to capture user ID 
+    if (user) { //tests to make sure current user is not null
+      console.log("user successful!!");
+      userId=firebase.auth().currentUser.uid; //get the current user's id 
+      let eventDescription={
+        currDesc:currDesc,
+        eventAddress:eventAddress,
+        eventDate:eventDate,
+        endTime:endTime,
+        startTime:startTime,
+        name:names
+      }
+        FIREBASE_DATABASE.ref('events/' + userId+'/savedEvents/').push(eventDescription).then( //changed from set to push, so that data is added and not overridden
+                                                                      //pushes each event to database under the current user's id 
+          console.log('Event pushed successfully under user ID !!')).catch(function(error){console.log("Database failed!");
+        });
+    }  
+    else{ //if current user is not detected 
+      console.log("user error!")
+    }
+  });
+}
 
 
 //home button
@@ -191,14 +216,16 @@ function initMapp() {
                 marker.addListener('click', toggleBounce);
                 google.maps.event.addListener(marker, 'click', function() {
                   //STYLE HERE BIG BRAIN JEFFREY
-                  let currDesc=events[k].desc; //event description
-                  let eventAddress=events[k].address; //address
-                  let eventDate=events[k].date; //date
-                  let endTime=events[k].endTime; //end Time
-                  let startTime=events[k].startTime; //start time
-                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc+'<button id="saveEvent">Save this event!</button>')
-                    // 
+                  currDesc=events[k].desc; //event description
+                  names=events[k].name;
+                  eventAddress=events[k].address; //address
+                  eventDate=events[k].date; //date
+                  endTime=events[k].endTime; //end Time
+                  startTime=events[k].startTime; //start time
+                  
 
+                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc+'<button onclick="userSaveEvent()">Save this event!</button>')
+                  
                   infowindow.open(map, this);
                   infowindow.setOptions({maxWidth:325});  
                   
@@ -345,8 +372,13 @@ function initMapp() {
                       if (user) { //tests to make sure current user is not null
                         console.log("user successful!!");
                         userId=firebase.auth().currentUser.uid; //get the current user's id 
+                        let dataArray={
+                          latlng:latlng,
+                          placeId:placeId,
+                          placeName:place.name
+                        }
                         console.log(userId);
-                          FIREBASE_DATABASE.ref('savedLocations/' + userId).push(latlng).then( //pushes intended marker to database (latlng object )
+                          FIREBASE_DATABASE.ref('savedLocations/' + userId).push(dataArray).then( //pushes intended marker to database (latlng object )
                             console.log('marker coordinates successfully saved!!')).catch(function(error){console.log("Marker save FAILED!");
                           });
                       }  
