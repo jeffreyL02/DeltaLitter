@@ -190,18 +190,23 @@ function initMapp() {
                 console.log('pushing events marker')
                 marker.addListener('click', toggleBounce);
                 google.maps.event.addListener(marker, 'click', function() {
-                        //STYLE HERE BIG BRAIN JEFFREY
+                  //STYLE HERE BIG BRAIN JEFFREY
                   let currDesc=events[k].desc; //event description
                   let eventAddress=events[k].address; //address
                   let eventDate=events[k].date; //date
                   let endTime=events[k].endTime; //end Time
                   let startTime=events[k].startTime; //start time
-                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc+'<button type="button" id="saveEvent">Save this event!</button>').then(
-                    document.getElementById("saveEvent").addEventListener('click', testFunction())
-                  );
+                  infowindow.setContent('<div><strong>' + events[k].name + '</strong><br>' +'<p><strong> Address </strong></p>'+eventAddress+ '<p><strong>Event Date: </strong></p>'+eventDate+'<p><strong>Start Time: </strong></p>'+startTime+'<p><strong> End Time: </strong></p>'+endTime+'<p> <strong>Linear Distance: </strong></p>'+'</div>'+roundedEventDist+" miles from your current location"+'<div><strong>Event Description: </strong</div>'+currDesc+'<button id="saveEvent">Save this event!</button>')
+                    // 
+
                   infowindow.open(map, this);
-                  infowindow.setOptions({maxWidth:325});
+                  infowindow.setOptions({maxWidth:325});  
+                  
                 });
+               
+                        
+  
+
                 function toggleBounce() {
                   if (marker.getAnimation() !== null) {
                     marker.setAnimation(null);
@@ -217,7 +222,10 @@ function initMapp() {
           }
         })
          document.getElementById('hamMenuBackground').style.display = 'none';
+        // document.getElementById("saveEvent").addEventListener('click', testFunction());
       }
+      
+      
     }
     function errData(data){
       console.log('error!')
